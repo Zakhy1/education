@@ -1,0 +1,81 @@
+version: '3.9'
+
+services:
+  app:
+    container_name: gunicorn
+    build: .
+    command: bash -c "poetry run python /srv/www/education_platform/manage.py migrate --noinput &&
+      poetry run gunicorn -c gunicorn.py education_platform.wsgi"
+    volumes:
+      - .:/srv/www/education_platform/education
+    expose:
+      - 8000
+    ports:
+      - "8000:8000"
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - djangonetwork
+    env_file:
+      - .env
+
+  db:
+    container_name: database
+    image: postgres:14
+    restart: always
+    ports:
+      - '5432:5432'
+    env_file:
+      - .env
+    networks:
+      - djangonetwork
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres_user -d postgres_db" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./data/db:/var/lib/postgres/data
+
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    volumes:
+      - ./data/cache:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - djangonetwork
+    healthcheck:
+      test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+
+  nginx:
+    # при падении будет стараться подняться
+    restart: always
+    image: nginx:latest
+    # слушает порт 8080
+    expose:
+      - 8080
+    ports:
+      - "80:8080"
+    volumes:
+      - ./education/static:/srv/www/education_platform/static
+      - ./education/media:/srv/www/education_platform/media
+      - ./education/logs:/srv/www/education_platform/logs
+      - ./docker/nginx:/etc/nginx/conf.d
+    depends_on:
+      - app
+    networks:
+      - djangonetwork
+
+networks:
+  djangonetwork:
+    driver: bridge

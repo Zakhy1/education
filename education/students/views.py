@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.views.generic.detail import DetailView
 
 from courses.models import Course
-from students.forms import CourseEnrollForm
+from .forms import CourseEnrollForm
 
 
 class StudentRegistrationView(CreateView):

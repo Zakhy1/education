@@ -22,6 +22,11 @@ services:
       - djangonetwork
     env_file:
       - .env
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --fail http://localhost:8000/ || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   db:
     container_name: database
@@ -58,6 +63,7 @@ services:
       retries: 5
 
   nginx:
+    container_name: nginx
     # при падении будет стараться подняться
     restart: always
     image: nginx:latest
@@ -66,15 +72,37 @@ services:
       - 8080
     ports:
       - "80:8080"
+      - "443:443"
     volumes:
       - ./education/static:/srv/www/education_platform/static
       - ./education/media:/srv/www/education_platform/media
       - ./education/logs:/srv/www/education_platform/logs
+      - ./education/ssl/:/srv/www/education_platform/ssl
       - ./docker/nginx:/etc/nginx/conf.d
     depends_on:
       - app
     networks:
       - djangonetwork
+
+#  daphne:
+#    container_name: daphne
+#    build: .
+#    working_dir: /srv/www/education_platform/
+#    command: [ "daphne", "-u", "/srv/www/education_platform/daphne.sock",
+#               "education_platform.education_platform.asgi:application" ]
+#    restart: always
+#    volumes:
+#      - .:/srv/www/education_platform/
+#    env_file:
+#      - .env
+#    depends_on:
+#      app:
+#        condition: service_healthy
+#      redis:
+#        condition: service_healthy
+#      db:
+#        condition: service_healthy
+
 
 networks:
   djangonetwork:

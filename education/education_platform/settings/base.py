@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = 'django-insecure-ra6il9reev!36(qkqdf*17y@h+*@zz_p!=$n94yoyn4&gbv8+o'
+SECRET_KEY = 'sdf45r24fsf2tra6il9reev!36(qkqdf*17y@h+*@zz_p!=$n94yoyn4&gbv8+o'
 
 INTERNAL_IPS = [
     '127.0.0.1'
@@ -73,7 +73,6 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
             'hosts': [('127.0.0.1', 6379)]
-            # 'hosts': [('redis://redis', 6379)]
         },
     },
 }
@@ -121,7 +120,7 @@ CACHES = {
     }
 }
 
-CACHE_MIDDLEWARE_SECONDS = 60 * 15
+CACHE_MIDDLEWARE_SECONDS = 30
 CACHE_MIDDLEWARE_ALIAS = 'default'
 CACHE_MIDDLEWARE_KEY_PREFIX = 'educa'
 

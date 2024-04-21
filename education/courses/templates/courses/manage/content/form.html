@@ -20,6 +20,7 @@
     <div class="module">
         <h2>Информация о курсе</h2>
         <form action="" method="post" enctype="multipart/form-data">
+            {{ form.media }}
             {{ form.as_p }}
             {% csrf_token %}
             <p><input type="submit" value="Сохранить"></p>

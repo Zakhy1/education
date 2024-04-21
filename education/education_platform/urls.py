@@ -16,6 +16,7 @@ urlpatterns = [
     path('api/', include('courses.api.urls', namespace='api')),
     path('chat/', include('chat.urls', namespace='chat')),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('froala_editor/', include('froala_editor.urls'))
 ]
 
 if settings.DEBUG:

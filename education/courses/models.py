@@ -3,6 +3,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.template.loader import render_to_string
+from froala_editor.fields import FroalaField
 
 from courses.fields import OrderField
 
@@ -97,7 +98,7 @@ class ItemBase(models.Model):
 
 
 class Text(ItemBase):
-    content = models.TextField()
+    content = FroalaField()
 
 
 class File(ItemBase):

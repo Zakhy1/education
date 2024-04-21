@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'redisboard',
     'rest_framework',
+    'froala_editor',
 
     'courses.apps.CoursesConfig',
     'students.apps.StudentsConfig',
@@ -120,7 +121,7 @@ CACHES = {
     }
 }
 
-CACHE_MIDDLEWARE_SECONDS = 30
+CACHE_MIDDLEWARE_SECONDS = 10
 CACHE_MIDDLEWARE_ALIAS = 'default'
 CACHE_MIDDLEWARE_KEY_PREFIX = 'educa'
 

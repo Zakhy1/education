@@ -20,6 +20,7 @@ channels-redis = "^4.2.0"
 psycopg2 = "^2.9.9"
 gunicorn = "^21.2.0"
 gevent = "^24.2.1"
+django-froala-editor = "^4.2.0"
 
 
 [tool.poetry.dev-dependencies]

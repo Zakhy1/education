@@ -456,6 +456,16 @@ Django = ">=3.2"
 requests = ">=2.19"
 
 [[package]]
+name = "django-froala-editor"
+version = "4.2.0"
+description = "django-froala-editor package helps integrate Froala WYSIWYG HTML editor with Django."
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-froala-editor-4.2.0.tar.gz", hash = "sha256:f348db0bacc4f93c3ab3c29bbde8b04a3ac621da15b7f07bffd7b1de3c6024c4"},
+]
+
+[[package]]
 name = "django-redisboard"
 version = "8.4.0"
 description = "Redis monitoring and inspection drop-in application using django admin."
@@ -1136,4 +1146,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "e1b1826c7aec043490e5450fed53b39e908dbf80c4da415bed2d095a7e3edea4"
+content-hash = "3d83320090a604c17e4379efb3452ad0bff0d3ca0a55b971c6124da9155ec544"

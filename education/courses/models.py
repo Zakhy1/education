@@ -4,6 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.template.loader import render_to_string
 from froala_editor.fields import FroalaField
+from pytils.translit import slugify
 
 from courses.fields import OrderField
 
@@ -33,6 +34,14 @@ class Course(models.Model):
     students = models.ManyToManyField(User,
                                       related_name='courses_joined',
                                       blank=True)
+
+    def save(self, *args, **kwargs):
+        """
+        Метод сохранения экземпляра
+        """
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title

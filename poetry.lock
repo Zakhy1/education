@@ -845,6 +845,16 @@ docs = ["sphinx (!=5.2.0,!=5.2.0.post0,!=7.2.5)", "sphinx-rtd-theme"]
 test = ["pretend", "pytest (>=3.0.1)", "pytest-rerunfailures"]
 
 [[package]]
+name = "pytils"
+version = "0.4.1"
+description = "Russian-specific string utils"
+optional = false
+python-versions = "^3.7"
+files = [
+    {file = "pytils-0.4.1.tar.gz", hash = "sha256:aa109b1bc0ec4bdb7c9768520110348d8aeb0706600e6cf641272e6850e26eab"},
+]
+
+[[package]]
 name = "redis"
 version = "5.0.3"
 description = "Python client for Redis database and key-value store"
@@ -1146,4 +1156,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "3d83320090a604c17e4379efb3452ad0bff0d3ca0a55b971c6124da9155ec544"
+content-hash = "fac0edead3576dc72ef8137249a36e074c34d0030d28c1a12a56a6a5d5c119e6"

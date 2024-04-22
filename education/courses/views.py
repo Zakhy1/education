@@ -59,6 +59,7 @@ class ManageCourseListView(OwnerCourseMixin, ListView):
 
 class CourseCreateView(OwnerCourseEditMixin, CreateView):
     permission_required = 'courses.add_course'
+    fields = ('subject', 'title', 'overview')
 
 
 class CourseUpdateView(OwnerCourseEditMixin, UpdateView):

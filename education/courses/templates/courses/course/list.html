@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     {% if subject %}
@@ -7,48 +8,56 @@
         Все курсы
     {% endif %}
 {% endblock %}
+{#{% block sidebar-items %}#}
+{#    <div class="sidebar-item {% if not subject %} s-active {% endif %}">#}
+{#        <a href="{% url 'course_list' %}" class="sidebar-link">Все</a>#}
+{#    </div>#}
+{#    {% for s in subjects %}#}
+{#        <div class="sidebar-item {% if subject == s %} s-active {% endif %}">#}
+{#            <a href="{% url 'course_list_subject' s.slug %}" class="sidebar-link"> {{ s.title }}#}
+{#                <span>{{ s.total_courses }}</span></a>#}
+{#        </div>#}
+{#    {% endfor %}#}
+{#{% endblock %}#}
+{% block sidebar %}
 
+{% endblock %}
 {% block content %}
-    <h1>
+    <h3 class="mb-4">
         {% if subject %}
-            курсы по {{ subject.title }}
+            Курсы по {{ subject.title }}
         {% else %}
             Все курсы
         {% endif %}
-    </h1>
-    <div class="contents">
-        <h3>Дисциплины</h3>
-        <ul id="modules">
-            <li {% if not subjects %} class="selected" {% endif %}>
-                <a href="{% url 'course_list' %}">Все</a>
-            </li>
+    </h3>
 
-            {% for s in subjects %}
-                <li {% if subject == s %} class="selected" {% endif %}>
-                    <a href="{% url 'course_list_subject' s.slug %}">
-                        {{ s.title }}
-                        <br>
-                        <span>
-                            {{ s.total_courses }} Курс
-                        </span>
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
     <div class="module">
         {% for course in courses %}
             {% with subject=course.subject %}
-                <h3>
-                    <a href="{% url 'course_detail' course.slug %}">
-                        {{ course.title }}
-                    </a>
-                </h3>
-                <p>
-                    <a href="{% url 'course_list_subject' subject.slug %}">{{ subject }}</a>
-                    {{ course.total_modules }} модулей.
-                    Автор: {{ course.owner.get_full_name }}
-                </p>
+                <div class="row">
+                    <div class="col-md-4 col-sm-12 course-card">
+
+                        <div class="row h-100">
+                            <div class="col-6 h-100 card-grid">
+                                <a href="{% url 'course_detail' course.slug %}" class="text-decoration-none">
+                                    <h4 class="course-title">{{ course.title }}</h4></a>
+                                <div class="course-desc-span">
+                                    <div class="">{{ subject }}</div>
+                                    <div>
+                                        {{ course.owner.get_full_name }}
+                                    </div>
+                                </div>
+                                <span class="course-stats">{{ course.total_modules }} модулей 10ч.</span>
+{#                                TODO icons#}
+
+                            </div>
+                            <div class="col-6 d-flex justify-content-end">
+                                <img src="{% static 'img/img_2.png' %}" alt="" class="img course-img">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             {% endwith %}
         {% endfor %}
     </div>

@@ -227,7 +227,10 @@ class CourseDetailView(DetailView):
     template_name = 'courses/course/detail.html'
 
     def get_context_data(self, **kwargs):
+        print(kwargs)
+        modules = Module.objects.filter(course=kwargs['object'])
         context = super().get_context_data(**kwargs)
+        context['modules'] = modules
         context['enroll_form'] = CourseEnrollForm(
             initial={'course': self.object}
         )

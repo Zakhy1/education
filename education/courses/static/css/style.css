@@ -2,11 +2,31 @@
 :root {
     --red-accent: #D81437;
     --gray-border: #D2D2D2;
-    --gray-text: #979797;
+    --gray-text: #494949;
     --footer-bg: #373D44;
     --default-border: 1px solid var(--gray-border);
+    --bg-block: #DAE8F1
 }
 
+.bg-accent {
+    background-color: var(--red-accent);
+}
+.justify-self-end {
+    justify-self: flex-end;
+}
+.c-white {
+    color: #fff;
+}
+.bg-block {
+    background-color: var(--bg-block);
+}
+.accent-btn {
+    background-color: var(--red-accent);
+    color: #fff;
+}
+.accent-btn:hover {
+    color: #fff;
+}
 /*Установил высоту мейна для прилипания подвала в низу страницы*/
 .main {
     min-height: calc(100vh - 80px);
@@ -79,38 +99,32 @@
     justify-content: center;
     height: 100%;
 }
-
-.course-card {
-    border-radius: 10px;
-    padding: 10px;
-    border: var(--default-border);
-    min-height: 250px;
+/*course detail*/
+.course-info {
+    list-style: none;
+    padding: 10px
 }
-
-.course-desc-span {
+.course-info li {
     color: var(--gray-text);
 }
-
 .img {
     width: 100%;
 }
-
 .course-img {
     width: 100px;
     height: 100px;
-    border-radius: 10px;
 }
-
-.course-title {
-    color: #000;
+/*course list*/
+.card-grid {
+    display: grid;
+    grid-template-rows: 50px 50px 1fr;
+}
+.course-card {
+    padding: 20px;
+    border: var(--default-border);
+    border-radius: 10px;
+    height: 250px;
 }
 .course-stats {
     align-self: end;
-}
-.card-grid {
-    display: grid;
-    grid-template-rows: 50px 1fr 1fr;
-}
-.card-grid:last-child {
-    grid-row: span;
 }

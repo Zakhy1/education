@@ -35,8 +35,7 @@
         {% for course in courses %}
             {% with subject=course.subject %}
                 <div class="row">
-                    <div class="col-md-4 col-sm-12 course-card">
-
+                    <div class="col-xl-4 col-md-6 col-sm-12 course-card">
                         <div class="row h-100">
                             <div class="col-6 h-100 card-grid">
                                 <a href="{% url 'course_detail' course.slug %}" class="text-decoration-none">
@@ -55,7 +54,6 @@
                                 <img src="{% static 'img/img_2.png' %}" alt="" class="img course-img">
                             </div>
                         </div>
-
                     </div>
                 </div>
             {% endwith %}

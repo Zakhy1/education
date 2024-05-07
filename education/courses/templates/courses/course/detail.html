@@ -1,33 +1,46 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}
     {{ object.title }}
 {% endblock %}
-
+{% block sidebar %} {% endblock %}
 {% block content %}
-    {% with subject=object.subject %}
-        <h1>
-            {{ object.title }}
-        </h1>
-        <div class="module">
-            <h2>Описание</h2>
-            <p>
-                <a href="{% url 'course_list_subject' subject.slug %}">
-                    {{ subject.title }}
-                </a>
-                {{ object.modules.count }} модулей.
-                Автор: {{ object.owner.get_full_name }}
-            </p>
-            {{ object.overview|linebreaks }}
+    <div class="row bg-accent p-4">
+        <div class="col-9">
+            <h2 class="c-white">{{ object.title }}</h2>
+            <p class="c-white">{{ object.overview }}</p>
+        </div>
+        <div class="col-3">
+            <img src="{% static 'img/img_2.png' %}" alt="" class="card-img">
+        </div>
+    </div>
+    <div class="row p-4">
+        <div class="col-10">
+            {# TODO сделать поле полного описания #}
+            {{ object.overview }}
+        </div>
+        <div class="col-2 d-flex flex-column justify-self-end">
+            <ul class="course-info bg-block rounded">
+                <li>{{ modules.count }} модулей</li>
+                <li>5 видео</li>
+                <li>3 задания</li>
+            </ul>
             {% if request.user.is_authenticated %}
                 <form action="{% url 'student_enroll_course' %}" method="post">
                     {{ enroll_form }}
                     {% csrf_token %}
-                    <input type="submit" value="Начать курс">
+                    <input class="btn accent-btn" type="submit" value="Начать курс">
                 </form>
-            {% else %}
-                <a href="{% url 'student_registration' %}" class="button">Зарегистрируйтесь для начала курса</a>
             {% endif %}
+
         </div>
-    {% endwith %}
+    </div>
+    <div class="row ps-4 mb-5">
+        <h4>Модули курса</h4>
+        <ul class="list-group-numbered">
+            {% for module in modules %}
+            	<li>{{ module.title }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

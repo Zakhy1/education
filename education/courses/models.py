@@ -29,11 +29,13 @@ class Course(models.Model):
                                 on_delete=models.CASCADE)
     title = models.CharField(max_length=128)
     slug = models.SlugField(max_length=128)
-    overview = models.TextField()
+    overview = models.TextField(max_length=256)
+    full_overview = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     students = models.ManyToManyField(User,
                                       related_name='courses_joined',
                                       blank=True)
+    image = models.ImageField(upload_to='course_images')
 
     def save(self, *args, **kwargs):
         """

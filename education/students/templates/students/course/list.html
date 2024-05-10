@@ -1,24 +1,47 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
-    Мои курсы
+    {% if subject %}
+        курсы по {{ subject.title }}
+    {% else %}
+        Все курсы
+    {% endif %}
 {% endblock %}
+{% block sidebar %}
 
+{% endblock %}
 {% block content %}
-    <h1>Мои курсы</h1>
+    <h3 class="mb-4">
+            Прохожу курсы
+    </h3>
+
     <div class="module">
-        {% for cource in object_list %}
-            <div class="cource-info">
-                <h3>{{ cource.title }}</h3>
-                <p><a href="{% url 'student_course_detail' cource.id %}">
-                    Содержание курса
-                </a></p>
-            </div>
-        {% empty %}
-            <p>Вы не зачислены не на один из курсов.
-                <a href="{% url 'course_list' %}">Смотреть курсы,</a>
-                Чтобы зачислиться на курс
-            </p>
+        {% for course in object_list %}
+            {% with subject=course.subject %}
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-sm-12 course-card">
+                        <div class="row h-100">
+                            <div class="col-6 h-100 card-grid">
+                                <a href="{% url 'course_detail' course.slug %}" class="text-decoration-none">
+                                    <h4 class="course-title">{{ course.title }}</h4></a>
+                                <div class="course-desc-span">
+                                    <div class="">{{ subject }}</div>
+                                    <div>
+                                        {{ course.owner.get_full_name }}
+                                    </div>
+                                </div>
+                                <span class="course-stats">{{ course.total_modules }} модулей 10ч.</span>
+{#                                TODO icons#}
+
+                            </div>
+                            <div class="col-6 d-flex justify-content-end">
+                                <img src="{% static 'img/img_2.png' %}" alt="" class="img course-img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
         {% endfor %}
     </div>
 {% endblock %}

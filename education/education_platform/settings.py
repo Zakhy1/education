@@ -2,13 +2,15 @@ from pathlib import Path
 
 from django.urls import reverse_lazy
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'sdf45r24fsf2tra6il9reev!36(qkqdf*17y@h+*@zz_p!=$n94yoyn4&gbv8+o'
 
 INTERNAL_IPS = [
     '127.0.0.1'
 ]
+
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -140,3 +142,8 @@ FROALA_EDITOR_PLUGINS = ('align', 'char_counter', 'code_beautifier', 'code_view'
                          'line_breaker', 'link', 'lists', 'paragraph_format', 'paragraph_style', 'quick_insert',
                          'quote', 'save', 'table',
                          'url', 'video')
+
+if DEBUG:
+    from education_platform.conf.local import *
+else:
+    from education_platform.conf.prod import *

@@ -11,22 +11,28 @@
 .bg-accent {
     background-color: var(--red-accent);
 }
+
 .justify-self-end {
     justify-self: flex-end;
 }
+
 .c-white {
     color: #fff;
 }
+
 .bg-block {
     background-color: var(--bg-block);
 }
+
 .accent-btn {
     background-color: var(--red-accent);
     color: #fff;
 }
+
 .accent-btn:hover {
     color: #fff;
 }
+
 /*Установил высоту мейна для прилипания подвала в низу страницы*/
 .main {
     min-height: calc(100vh - 80px);
@@ -99,32 +105,39 @@
     justify-content: center;
     height: 100%;
 }
+
 /*course detail*/
 .course-info {
     list-style: none;
     padding: 10px
 }
+
 .course-info li {
     color: var(--gray-text);
 }
+
 .img {
     width: 100%;
 }
+
 .course-img {
     width: 100px;
     height: 100px;
 }
+
 /*course list*/
 .card-grid {
     display: grid;
     grid-template-rows: 50px 50px 1fr;
 }
+
 .course-card {
     padding: 20px;
     border: var(--default-border);
     border-radius: 10px;
     height: 250px;
 }
+
 .course-stats {
     align-self: end;
 }

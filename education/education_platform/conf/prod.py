@@ -1,8 +1,8 @@
 import os
-from .base import *
 
-DEBUG = True
+from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 ADMINS = [
     ('Zakhy M', 'lirchzakhar@gmail.com')
 ]

@@ -29,13 +29,14 @@
 
 {% endblock %}
 {% block content %}
-    <h1>{{ module.title }}</h1>
     <div class="module">
         {% cache 600 module_contents module request.LANGUAGE_CODE %}
             {% for content in module.contents.all %}
                 {% with item=content.item %}
-                    <h2>{{ item.title }}</h2>
-                    {{ item.render }}
+                    <h2 class="mb-4">{{ item.title }}</h2>
+                    <div class="item-content mb-4">
+                        {{ item.render }}
+                    </div>
                 {% endwith %}
             {% endfor %}
         {% endcache %}

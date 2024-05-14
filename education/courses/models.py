@@ -37,6 +37,8 @@ class Course(models.Model):
                                       related_name='courses_joined',
                                       blank=True, verbose_name='Студенты')
     image = models.ImageField(upload_to='course_images', blank=True, verbose_name='Изображение')
+    hours = models.PositiveIntegerField(default=10)
+    tasks = models.PositiveIntegerField(default=4)
 
     def save(self, *args, **kwargs):
         """

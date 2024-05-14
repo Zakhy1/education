@@ -5,49 +5,56 @@
 {% endblock %}
 {% block sidebar %}{% endblock %}
 {% block content %}
-    <h1>Мои курсы</h1>
+    <div class="d-flex align-items-center justify-content-between mb-2">
+        <h1>Мои курсы</h1>
+        <a href="{% url 'course_create' %}" class="btn btn-danger">Создать курс</a>
+    </div>
 
     <div class="module">
-        {% for course in object_list %}
-            {% with subject=course.subject %}
-                <div class="row">
-                    <div class="col-md-6 col-sm-12 course-card">
-                        <div class="row h-100">
-                            <div class="col-6 h-100 card-grid">
-                                <a href="{% url 'course_detail' course.slug %}" class="text-decoration-none">
-                                    <h4 class="course-title">{{ course.title }}</h4></a>
-                                <div class="course-big-links">
-                                    <p>
-                                        <a href="{% url 'course_edit' course.id %}" class="btn btn-outline-primary">Редактировать</a>
-                                    </p>
-                                    <p>
-                                        <a href="{% url "course_module_update" course.id %}" class="btn btn-outline-primary">Изменить модули</a>
-                                    </p>
-                                    <p>
-                                        {% if course.modules.count > 0 %}
-                                            <a href="{% url 'module_content_list' course.modules.first.id %}" class="btn btn-outline-primary">
-                                                Настроить контент
-                                            </a>
-                                        {% endif %}
-                                    </p>
+        <div class="row">
+            {% for course in object_list %}
+                {% with subject=course.subject %}
 
+                    <div class="col-md-6 col-sm-12 mt-4">
+                        <div class="course-card p-4">
+                            <div class="row h-100">
+                                <div class="col-6 h-100 card-grid">
+                                    <a href="{% url 'course_detail' course.slug %}" class="text-decoration-none">
+                                        <h4 class="course-title">{{ course.title }}</h4></a>
+                                    <div class="course-big-links">
+                                        <p>
+                                            <a href="{% url 'course_edit' course.id %}" class="btn btn-outline-primary">Редактировать</a>
+                                        </p>
+                                        <p>
+                                            <a href="{% url "course_module_update" course.id %}"
+                                               class="btn btn-outline-primary">Изменить модули</a>
+                                        </p>
+                                        <p>
+                                            {% if course.modules.count > 0 %}
+                                                <a href="{% url 'module_content_list' course.modules.first.id %}"
+                                                   class="btn btn-outline-primary">
+                                                    Настроить контент
+                                                </a>
+                                            {% endif %}
+                                        </p>
+
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-6 d-grid  justify-content-end">
-                                <img src="{% static 'img/img_2.png' %}" alt="" class="img course-img">
-                                <p style="align-self: start; justify-self: end">
-                                    <a href="{% url 'course_delete' course.id %}" class="btn btn-danger">Удалить</a>
-                                </p>
+                                <div class="col-6 d-grid  justify-content-end">
+                                    <img src="{% static 'img/img_2.png' %}" alt="" class="img course-img rounded">
+                                    <p style="align-self: start; justify-self: end">
+                                        <a href="{% url 'course_delete' course.id %}" class="btn btn-danger">Удалить</a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endwith %}
-            {% empty %}
-            <p>Здесь пока ничего нет</p>
-            <p>
-                <a href="{% url 'course_create' %}" class="button">Создать новый курс</a>
-            </p>
-        {% endfor %}
+                {% endwith %}
+                {% empty %}
+                <p>Здесь пока ничего нет</p>
+                <p>
+                    <a href="{% url 'course_create' %}" class="button">Создать новый курс</a>
+                </p>
+            {% endfor %} </div>
     </div>
 {% endblock %}

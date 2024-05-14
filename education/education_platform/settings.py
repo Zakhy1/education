@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'froala_editor',
     'django_ckeditor_5',
+    'fontawesomefree',
 
     'users.apps.UsersConfig',
     'courses.apps.CoursesConfig',

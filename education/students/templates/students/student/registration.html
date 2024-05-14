@@ -1,17 +1,30 @@
 {% extends 'base.html' %}
-
+{% load course %}
 {% block title %}
     Регистрация
 {% endblock %}
-
+{% block sidebar %}{% endblock %}
 {% block content %}
     <h1>Регистрация</h1>
     <div class="module">
-        <p>Заполните форму для входа</p>
+        {% if form.errors %}
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li style="color: red;">{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
         <form method="post">
-            {{ form.as_p }}
+            {% for field in form %}
+                <div class="mb-4">
+                    <label for="{{ field.id_for_label }}" class="mb-2">{{ field.label }}</label>
+                    {{ field|add_class:'form-control' }}
+                </div>
+            {% endfor %}
             {% csrf_token %}
-            <p><input type="submit" value="Создать аккаунт"></p>
+            <p><input type="submit" value="Создать аккаунт" class="btn btn-danger"></p>
         </form>
     </div>
 {% endblock %}

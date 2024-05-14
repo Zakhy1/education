@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load course %}
 {% block title %}
     {% if object %}
         Редактирование контента "{{ object.title }}"
@@ -7,23 +7,43 @@
         Добавление контента
     {% endif %}
 {% endblock %}
+{% block sidebar %}
 
-{% block content %}
-    <h1>
+{% endblock %}
+{% block main %}
+    <div class="col-12 d-grid justify-content-center">
+        <h2>
 
-        {% if object %}
-            Редактирование контента "{{ object.title }}"
-        {% else %}
-            Добавление контента
-        {% endif %}
-    </h1>
-    <div class="module">
-        <h2>Информация о курсе</h2>
-        <form action="" style="width: 1200px" method="post" enctype="multipart/form-data">
-            {{ form.media }}
-            {{ form.as_p }}
-            {% csrf_token %}
-            <p><input type="submit" value="Сохранить"></p>
-        </form>
+            {% if object %}
+                Редактирование контента "{{ object.title }}"
+            {% else %}
+                Добавление контента
+            {% endif %}
+        </h2>
+        <div class="module">
+            <form action="" style="width: 1200px" method="post" enctype="multipart/form-data">
+                {{ form.media }}
+                {% for field in form.visible_fields %}
+                    {% if field.field.widget.input_type == "text" %}
+                        <div class="mb-2 col-6">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                            {{ field|add_class:"form-control" }}
+                        </div>
+                    {% elif field.field.widget.input_type == 'file' or field.field.widget.input_type == 'url' %}
+                        <div class="mb-2 col-6">
+                            <label for="{{ field.id_for_label }}">
+                                {{ field.label }}{% if field.field.widget.input_type == 'url' %}
+                                    (url){% endif %}:</label>
+                            {{ field|add_class:"form-control" }}
+                        </div>
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
+                {% endfor %}
+                {% csrf_token %}
+                <p><input type="submit" value="Сохранить" class="btn btn-danger"></p>
+            </form>
+        </div>
     </div>
 {% endblock %}
+

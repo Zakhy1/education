@@ -7,22 +7,55 @@
         Создать новый курс
     {% endif %}
 {% endblock %}
+{% block sidebar %}{% endblock %}
 
 {% block content %}
-    <h1>
+    <h3>
         {% if object %}
-            Редактировать курс "{{ object.title }}"
+            Редактирование курса "{{ object.title }}"
         {% else %}
-            Создать новый курс
+            Создание курса
         {% endif %}
-    </h1>
+    </h3>
 
-    <div class="module">
-        <h2>Информация о курсе</h2>
-        <form method="post">
+    <div class="mt-4 form-block mb-4">
+        {% if form.errors %}
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }} {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form method="post" class="row" novalidate>
             {% csrf_token %}
-            {{ form.as_p }}
-            <p><input type="submit" value="Сохранить курс"></p>
+            {{ form.media }}
+            <div class="col-md-6 col-sm-12 mb-2">
+                {{ form.title.label }}
+                {{ form.title }}
+            </div>
+            <div class="col-md-6 col-sm-12 mb-2">
+                {% if form.subject %}
+                    {{ form.subject.label }}
+                    {{ form.subject }}
+                {% endif %}
+            </div>
+            <div class="col-12 mb-2">
+                {{ form.overview.label }}
+                {{ form.overview }}
+            </div>
+            <div class="col-12 mb-2">
+                {{ form.full_overview.label }}
+                {{ form.full_overview }}
+            </div>
+            <div class="col-12 mb-2">
+                <label for="id_image" class="mb-1">Изображение</label>
+                {{ form.image }}
+            </div>
+            <p>
+                <button type="submit" class="btn btn-danger mt-3">Сохранить курс</button>
+            </p>
         </form>
     </div>
 

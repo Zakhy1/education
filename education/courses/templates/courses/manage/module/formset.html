@@ -1,18 +1,46 @@
 {% extends 'base.html' %}
+{% load course %}
 
 {% block title %}
-	Редактировать "{{ course.title }}"
+    Редактировать "{{ course.title }}"
 {% endblock %}
-
+{% block sidebar %} {% endblock %}
 {% block content %}
-	<h1>Редактировать "{{ course.title }}"</h1>
+    <h2 class="mb-4">Редактировать модули курса "{{ course.title }}"</h2>
     <div class="module">
-        <h2>Модули курса</h2>
-        <form method="post">
-            {{ formset }}
+        <form method="post" class="row">
             {{ formset.management_form }}
+            <div class="col-12">
+                {% for form in formset %}
+                    <div class="row form-block mb-3">
+                        {% for field in form.visible_fields %}
+                            {% if not field.field.widget.input_type %}
+                                <div class="col-6">
+                                    {{ field.label_tag }}
+                                    {{ field|add_rows:5 }}
+                                </div>
+                            {% elif field.field.widget.input_type == "text" %}
+                                <div class="col-6">
+                                    {{ field.label_tag }}
+                                    {{ field|add_class:"form-control" }}
+                                </div>
+                            {% elif field.field.widget.input_type == 'checkbox' %}
+                                <div class="d-flex gap-2">
+                                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                        {{ field|add_class:"btn-check" }}
+                                        <label class="btn btn-outline-danger" for="{{ field.id_for_label }}">Удалить
+                                            модуль</label>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
             {% csrf_token %}
-            <input type="submit" value="Сохранить модули">
+            <div>
+                <input type="submit" value="Сохранить модули" class="btn btn-danger">
+            </div>
         </form>
     </div>
 {% endblock %}

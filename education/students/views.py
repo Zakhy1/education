@@ -8,18 +8,19 @@ from django.contrib.auth import authenticate, login
 from django.views.generic.detail import DetailView
 
 from courses.models import Course
+from users.forms import CustomUserCreationForm
 from .forms import CourseEnrollForm
 
 
 class StudentRegistrationView(CreateView):
     template_name = 'students/student/registration.html'
-    form_class = UserCreationForm
+    form_class = CustomUserCreationForm
     success_url = reverse_lazy('student_course_list')
 
     def form_valid(self, form):
         result = super().form_valid(form)
         cd = form.cleaned_data
-        user = authenticate(username=cd['username'],
+        user = authenticate(username=cd['email'],
                             password=cd['password1'])
         login(self.request, user)
         return result

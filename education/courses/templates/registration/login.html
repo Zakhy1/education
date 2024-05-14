@@ -1,22 +1,31 @@
 {% extends 'base.html' %}
-
+{% load course %}
 {% block title %}Логин{% endblock %}
-
+{% block sidebar %}{% endblock %}
 {% block content %}
-    <h1>Вход</h1>
-    <div class="module">
-        {% if form.errors %}
-            <p>Ваш логин и пароль не подходят. Попробуйте еще раз</p>
-        {% else %}
-            <p>Введите данные для входа</p>
-        {% endif %}
-        <div class="login-form">
-            <form action="{% url 'login' %}" method="post">
-                {{ form.as_p }}
-                {% csrf_token %}
-                <input type="hidden" name="next" value="{{ next }}"/>
-                <p><input type="submit" value="Войти"></p>
-            </form>
+        <h3>Вход</h3>
+        <div class="module">
+            {% if form.errors %}
+                <p style="color: red;">Ваш логин и пароль не подходят. Попробуйте еще раз</p>
+            {% else %}
+                <p>Введите данные для входа</p>
+            {% endif %}
+            <div>
+                <form action="{% url 'login' %}" method="post">
+                    {% for field in form %}
+                        <div class="mb-4">
+                            <label for="{{ field.id_for_label }}" class="mb-2">{{ field.label }}</label>
+                            {{ field|add_class:'form-control' }}
+                        </div>
+                    {% endfor %}
+
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                    <div class="d-flex justify-content-between">
+                        <input type="submit" value="Войти" class="btn btn-danger">
+                        <a href="{% url 'student_registration' %}" class="btn btn-outline-danger">Регистрация</a>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 {% endblock %}

@@ -13,7 +13,7 @@ from django.views.generic.edit import CreateView, UpdateView, \
     DeleteView
 from django.views.generic.list import ListView
 
-from courses.forms import ModuleFormSet
+from courses.forms import ModuleFormSet, CourseEditForm, CourseCreateForm
 from courses.models import Course, Subject
 from courses.models import Module, Content
 from students.forms import CourseEnrollForm
@@ -58,12 +58,15 @@ class ManageCourseListView(OwnerCourseMixin, ListView):
 
 
 class CourseCreateView(OwnerCourseEditMixin, CreateView):
+    fields = None
     permission_required = 'courses.add_course'
-    fields = ('subject', 'title', 'overview')
+    form_class = CourseCreateForm
 
 
 class CourseUpdateView(OwnerCourseEditMixin, UpdateView):
+    fields = None
     permission_required = 'courses.change_course'
+    form_class = CourseEditForm
 
 
 class CourseDeleteView(OwnerCourseMixin, DeleteView):

@@ -96,7 +96,11 @@ class AuthenticationForm(forms.Form):
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField()
+    bool = forms.BooleanField(
+        label='Согласие на обработку персональных данных', required=True,
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
+    )
 
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name')
+        fields = ('email', 'first_name', 'last_name', 'password1', 'password2', 'bool')

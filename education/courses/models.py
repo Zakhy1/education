@@ -31,7 +31,7 @@ class Course(models.Model):
     title = models.CharField(max_length=128, verbose_name='Название')
     slug = models.SlugField(max_length=128)
     overview = models.TextField(verbose_name='Краткое описание')
-    full_overview = CKEditor5Field('Text', config_name='extends')
+    full_overview = CKEditor5Field(verbose_name='Подробное описание', config_name='extends')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
     students = models.ManyToManyField(get_user_model(),
                                       related_name='courses_joined',
@@ -112,7 +112,7 @@ class ItemBase(models.Model):
 
 
 class Text(ItemBase):
-    content = CKEditor5Field(config_name='extends', verbose_name='Описание')
+    content = CKEditor5Field(config_name='extends', verbose_name='Описание', null=True, blank=True)
 
 
 class File(ItemBase):

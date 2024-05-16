@@ -19,9 +19,22 @@
         <form method="post">
             {% for field in form %}
                 <div class="mb-4">
-                    <label for="{{ field.id_for_label }}" class="mb-2">{{ field.label }}</label>
-                    {{ field|add_class:'form-control' }}
+                    {% if field.field.widget.input_type == 'checkbox' %}
+                        <div class="form-check">
+                            {{ field }}
+                            <a href="{% url 'course_list' %}" class="check-a" target="_blank">
+                                <label class="form-check-label">
+                                {{ field.label }}
+                                </label>
+                            </a>
+                        </div>
+
+                    {% else %}
+                        <label for="{{ field.id_for_label }}" class="mb-2">{{ field.label }}</label>
+                        {{ field|add_class:'form-control' }}
+                    {% endif %}
                 </div>
+
             {% endfor %}
             {% csrf_token %}
             <p><input type="submit" value="Создать аккаунт" class="btn btn-danger"></p>

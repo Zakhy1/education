@@ -36,8 +36,6 @@
                         </li>
                         {% if request.user.is_authenticated %}
                             <li class="nav-item">
-                                <form action="{% url "logout" %}" method="POST">
-                                    {% csrf_token %}
                                     <div class="dropdown">
                                         <button class="btn btn-outline-danger dropdown-toggle" type="button"
                                                 id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,23 +43,25 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <li>
-                                                <button class="dropdown-item" type="submit" href="#">Выйти</button>
+                                                <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </form>
                             </li>
-                            <li class="nav-item">
-                                <a href="{% url 'student_course_list' %}"
-                                   class="btn btn-outline-primary">
-                                    Мои курсы (студент)
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{% url 'manage_course_list' %}" class="btn btn-primary">
-                                    Мои курсы (преподаватель)
-                                </a>
-                            </li>
+                            {% if request.user.is_superuser %}
+                                <li class="nav-item">
+                                    <a href="{% url 'student_course_list' %}"
+                                       class="btn btn-outline-primary">
+                                        Мои курсы (студент)
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'manage_course_list' %}" class="btn btn-primary">
+                                        Мои курсы (преподаватель)
+                                    </a>
+                                </li>
+                            {% endif %}
                         {% else %}
                             <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">
                                 <button type="button" class="btn btn-danger">Вход в систему</button>

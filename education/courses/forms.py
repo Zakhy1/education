@@ -17,10 +17,12 @@ class CourseCreateForm(forms.ModelForm):
         self.fields['image'].widget.attrs.update({'class': 'form-control'})
         self.fields['overview'].label = 'Краткое описание'
         self.fields['overview'].widget.attrs.update({'class': 'form-control danger', 'rows': '3'})
+        self.fields['hours'].label = 'Количество часов для освоения курса'
+        self.fields['hours'].widget.attrs.update({'class': 'form-control'})
 
     class Meta:
         model = Course
-        fields = ('title', 'subject', 'image', 'overview', 'full_overview')
+        fields = ('title', 'subject', 'image', 'overview', 'full_overview', 'hours')
 
 
 class CourseEditForm(forms.ModelForm):
@@ -32,7 +34,9 @@ class CourseEditForm(forms.ModelForm):
         self.fields['overview'].label = 'Краткое описание:'
         self.fields['overview'].widget.attrs.update({'class': 'form-control danger', 'rows': '5'})
         self.fields['full_overview'].label = 'Подробное описание:'
+        self.fields['hours'].label = 'Количество часов для освоения курса'
+        self.fields['hours'].widget.attrs.update({'class': 'form-control'})
 
     class Meta:
         model = Course
-        fields = ('title', 'overview', 'full_overview', 'image')
+        fields = ('title', 'overview', 'full_overview', 'image', 'hours')

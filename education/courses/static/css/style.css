@@ -130,12 +130,15 @@
     display: grid;
     grid-template-rows: 50px 50px 1fr;
 }
+
 .c-title {
     color: var(--red-accent);
 }
+
 .c-title:hover {
     color: darkred;
 }
+
 .course-card {
     border: var(--default-border);
     border-radius: 10px;
@@ -184,10 +187,15 @@
     text-decoration: none;
     border-radius: 10px;
 }
+
 .accent-link {
     color: var(--red-accent);
     text-decoration: none;
 }
+
 .accent-link:hover {
     color: #aa0c0c;
+}
+.check-a, .check-a label {
+    cursor: pointer;
 }

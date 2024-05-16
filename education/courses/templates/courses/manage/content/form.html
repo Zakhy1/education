@@ -21,6 +21,15 @@
             {% endif %}
         </h2>
         <div class="module">
+            {% if form.errors %}
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li style="color: red;">{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
             <form action="" style="width: 1200px" method="post" enctype="multipart/form-data">
                 {{ form.media }}
                 {% for field in form.visible_fields %}

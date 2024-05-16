@@ -31,15 +31,19 @@
         <form method="post" class="row" novalidate>
             {% csrf_token %}
             {{ form.media }}
-            <div class="col-md-6 col-sm-12 mb-2">
+            <div class="col-md-4 col-sm-12 mb-2">
                 {{ form.title.label }}
                 {{ form.title }}
             </div>
-            <div class="col-md-6 col-sm-12 mb-2">
-                {% if form.subject %}
+            {% if form.subject %}
+                <div class="col-md-4 col-sm-12 mb-2">
                     {{ form.subject.label }}
                     {{ form.subject }}
-                {% endif %}
+                </div>
+            {% endif %}
+            <div class="col-4 mb-2">
+                {{ form.hours.label }}
+                {{ form.hours }}
             </div>
             <div class="col-12 mb-2">
                 {{ form.overview.label }}

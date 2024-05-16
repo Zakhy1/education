@@ -17,15 +17,14 @@
         </div>
     </div>
     <div class="row p-4">
-        <div class="col-10">
-            {# TODO сделать поле полного описания #}
+        <div class="col-9">
             {{ object.full_overview|safe }}
         </div>
-        <div class="col-2 d-flex flex-column justify-self-end">
+        <div class="col-3 d-flex flex-column justify-self-end">
             <ul class="course-info bg-block rounded">
                 <li>{{ modules.count }} модулей</li>
-                <li>5 видео</li>
-                <li>3 задания</li>
+                <li>{{ object.hours }} часов на прохождение</li>
+                <li>{{ object.tasks }} задания</li>
             </ul>
             {% if request.user.is_authenticated %}
                 <form action="{% url 'student_enroll_course' %}" method="post">
@@ -33,6 +32,8 @@
                     {% csrf_token %}
                     <input class="btn accent-btn" type="submit" value="Начать курс">
                 </form>
+            {% else %}
+                <p>Для прохождения курса</p><a class="btn btn-danger" href="{% url 'login' %}">Войдите в систему</a>
             {% endif %}
 
         </div>
@@ -44,11 +45,13 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="heading{{ module.order }}">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse{{ module.order }}" aria-expanded="true" aria-controls="collapse{{ module.order }}">
-                           {{ module.order }}. {{ module.title }}
+                                data-bs-target="#collapse{{ module.order }}" aria-expanded="true"
+                                aria-controls="collapse{{ module.order }}">
+                            {{ module.order }}. {{ module.title }}
                         </button>
                     </h2>
-                    <div id="collapse{{ module.order }}" class="accordion-collapse collapse" aria-labelledby="heading{{ module.order }}"
+                    <div id="collapse{{ module.order }}" class="accordion-collapse collapse"
+                         aria-labelledby="heading{{ module.order }}"
                          data-bs-parent="#accordion">
                         <div class="accordion-body">
                             {{ module.description }}

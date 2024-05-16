@@ -3,14 +3,18 @@
 {% block title %}
     Удаление курса
 {% endblock %}
+{% block sidebar %}
 
+{% endblock %}
 {% block content %}
-    <h1>Удалить курс "{{ object.title }}"</h1>
-    <div class="module">
-        <form method="post">
-            {% csrf_token %}
-            <p>Вы хотите удалить "{{ object }}"?</p>
-            <input type="submit" value="Подтвердить">
-        </form>
+    <div class="d-grid justify-content-center align-items-center">
+        <h4>Удалить курс "{{ object.title }}"</h4>
+        <div class="module">
+            <form method="post">
+                {% csrf_token %}
+                <p>Вы хотите удалить "{{ object }}"?</p>
+                <input type="submit" value="Подтвердить" class="btn btn-danger">
+            </form>
+        </div>
     </div>
 {% endblock %}

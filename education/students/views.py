@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView
@@ -46,7 +47,9 @@ class StudentCourseListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(students__in=[self.request.user])
+        return qs.filter(students__in=[self.request.user]).annotate(
+            total_modules=Count('modules')
+        )
 
 
 class StudentCourseDetailView(DetailView):

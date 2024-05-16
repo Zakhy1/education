@@ -15,7 +15,7 @@
             {% for course in object_list %}
                 {% with subject=course.subject %}
 
-                    <div class="col-md-6 col-sm-12 mt-4">
+                    <div class="col-xl-6 col-sm-12 mt-4">
                         <div class="course-card p-4">
                             <div class="row h-100">
                                 <div class="col-6 h-100 card-grid">
@@ -42,8 +42,8 @@
                                 </div>
                                 <div class="col-6 d-grid  justify-content-end">
                                     <img src="{% static 'img/img_2.png' %}" alt="" class="img course-img rounded">
-                                    <p style="align-self: start; justify-self: end">
-                                        <a href="{% url 'course_delete' course.id %}" class="btn btn-danger">Удалить</a>
+                                    <p style="align-self: start; justify-self: end;">
+                                        <a href="{% url 'course_delete' course.id %}" class="btn btn-danger" style="width: 100px">Удалить</a>
                                     </p>
                                 </div>
                             </div>

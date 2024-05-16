@@ -8,10 +8,10 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
-from django.views.generic import FormView
+from django.views.generic import FormView, TemplateView
 from django.contrib.auth import login as auth_login
 from users.forms import AuthenticationForm
-
+from django.contrib.auth import logout as auth_logout
 
 class LoginView(RedirectURLMixin, FormView):
     """
@@ -68,6 +68,47 @@ class LoginView(RedirectURLMixin, FormView):
                 self.redirect_field_name: self.get_redirect_url(),
                 "site": current_site,
                 "site_name": current_site.name,
+                **(self.extra_context or {}),
+            }
+        )
+        return context
+
+
+class LogoutView(RedirectURLMixin, TemplateView):
+    http_method_names = ["get", "head", "post", "options"]
+    template_name = "registration/logged_out.html"
+    extra_context = None
+
+    @method_decorator(csrf_protect)
+    def post(self, request, *args, **kwargs):
+        """Logout may be done via POST."""
+        auth_logout(request)
+        redirect_to = reverse_lazy('login')
+        if redirect_to != request.get_full_path():
+            return HttpResponseRedirect(redirect_to)
+        return super().get(request, *args, **kwargs)
+
+    # RemovedInDjango50Warning.
+    get = post
+
+    def get_default_redirect_url(self):
+        """Return the default redirect URL."""
+        if self.next_page:
+            return resolve_url(self.next_page)
+        elif settings.LOGOUT_REDIRECT_URL:
+            return resolve_url(settings.LOGOUT_REDIRECT_URL)
+        else:
+            return self.request.path
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_site = get_current_site(self.request)
+        context.update(
+            {
+                "site": current_site,
+                "site_name": current_site.name,
+                "title": ("Logged out"),
+                "subtitle": None,
                 **(self.extra_context or {}),
             }
         )

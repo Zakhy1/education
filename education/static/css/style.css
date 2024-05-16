@@ -1,0 +1,201 @@
+/*Переменные*/
+:root {
+    --red-accent: #D81437;
+    --gray-border: #D2D2D2;
+    --gray-text: #494949;
+    --footer-bg: #373D44;
+    --default-border: 1px solid var(--gray-border);
+    --bg-block: #DAE8F1
+}
+
+.bg-accent {
+    background-color: var(--red-accent);
+}
+
+.justify-self-end {
+    justify-self: flex-end;
+}
+
+.c-white {
+    color: #fff;
+}
+
+.bg-block {
+    background-color: var(--bg-block);
+}
+
+.accent-btn {
+    background-color: var(--red-accent);
+    color: #fff;
+}
+
+.accent-btn:hover {
+    color: #fff;
+}
+
+/*Установил высоту мейна для прилипания подвала в низу страницы*/
+.main {
+    min-height: calc(100vh - 80px);
+}
+
+/*Контент*/
+/*Сайдбар*/
+
+.sidebar {
+    border: var(--default-border);
+}
+
+.s-active {
+    background-color: var(--red-accent);
+}
+
+.s-active .sidebar-link {
+    color: #fff;
+}
+
+.s-active .sidebar-link:hover {
+    color: #fff;
+}
+
+.sidebar-item {
+    display: flex;
+    border-bottom: var(--default-border);
+    padding: 10px;
+}
+
+.sidebar:last-child {
+    border-bottom: none;
+}
+
+.sidebar-link {
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: var(--gray-text);
+}
+
+.sidebar-link:hover {
+    color: var(--red-accent);
+}
+
+/*Подвал*/
+.footer-nav {
+    background: var(--footer-bg);
+    height: 80px;
+}
+
+.footer-link {
+    color: #9D9D9D;
+    text-decoration: none;
+    font-weight: bold;
+
+    display: inline-block;
+    transition: 0.3s; /* Время перехода */
+}
+
+.footer-link:hover {
+    color: #fff;
+
+    transform: rotate(3deg) translate(5px); /* Трансформация */
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+/*course detail*/
+.course-info {
+    list-style: none;
+    padding: 10px
+}
+
+.course-info li {
+    color: var(--gray-text);
+}
+
+.img {
+    width: 100%;
+}
+
+.course-img {
+    width: 100px;
+    height: 100px;
+}
+
+/*course list*/
+.card-grid {
+    display: grid;
+    grid-template-rows: 50px 50px 1fr;
+}
+
+.c-title {
+    color: var(--red-accent);
+}
+
+.c-title:hover {
+    color: darkred;
+}
+
+.course-card {
+    border: var(--default-border);
+    border-radius: 10px;
+    height: 250px;
+}
+
+.course-stats {
+    align-self: end;
+    color: #808080;
+}
+
+.form-block {
+    padding: 20px;
+    background-color: var(--bg-block);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+}
+
+.default-textarea {
+    height: 150px;
+}
+
+.content-block {
+    padding: 10px;
+    border-top: var(--default-border);
+    border-left: var(--default-border);
+    border-right: var(--default-border);
+}
+
+.content-block:last-child {
+    border-bottom: var(--default-border);
+}
+
+.content-block a, .content-block form input[type='submit'] {
+    text-decoration: none;
+    color: var(--red-accent);
+    background: none;
+    border: none;
+}
+
+.content-type {
+    color: var(--red-accent);
+    padding: 10px;
+    /*border: var(--default-border);*/
+    box-shadow: 1px 1px 5px 1px var(--gray-border);
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+.accent-link {
+    color: var(--red-accent);
+    text-decoration: none;
+}
+
+.accent-link:hover {
+    color: #aa0c0c;
+}
+.check-a, .check-a label {
+    cursor: pointer;
+}

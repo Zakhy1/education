@@ -44,18 +44,18 @@
         <div class="accordion" id="accordion">
             {% for module in modules %}
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading{{ module.order|add:1 }}">
+                    <h2 class="accordion-header" id="heading{{ module.order }}">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapse{{ module.order }}" aria-expanded="true"
-                                aria-controls="collapse{{ module.order|add:1 }}">
+                                aria-controls="collapse{{ module.order }}">
                             {{ module.order|add:1 }}. {{ module.title }}
                         </button>
                     </h2>
-                    <div id="collapse{{ module.order|add:1 }}" class="accordion-collapse collapse"
+                    <div id="collapse{{ module.order }}" class="accordion-collapse collapse"
                          aria-labelledby="heading{{ module.order }}"
                          data-bs-parent="#accordion">
                         <div class="accordion-body">
-                            {{ module.description }}
+                            {{ module.description|safe }}
                         </div>
                     </div>
                 </div>

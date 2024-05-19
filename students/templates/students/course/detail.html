@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load cache %}
+
+
+{% block title %}
+    {{ object.title }}
+{% endblock %}
+{% block sidebar-items %}
+    {% for m in object.modules.all %}
+        <div class="sidebar-item {% if m == module %}s-active{% endif %}" data-id="{{ m.id }}">
+            <a href="{% url 'student_course_detail_module' object.id m.id %}"
+               class="sidebar-link">{{ m.order }}. {{ m.title }}</a>
+        </div>
+    {% endfor %}
+
+
+    {#    {% for m in object.modules.all %}#}
+    {#        <li data-id="{{ m.id }}" {% if m == module %} class="selected"{% endif %}>#}
+    {#            <a href="{% url 'student_course_detail_module' object.id m.id %}">#}
+    {#                        <span>#}
+    {#                            Модуль <span class="order">{{ m.order|add:1 }}</span>#}
+    {#                        </span> <br>#}
+    {#                {{ m.title }}#}
+    {#            </a>#}
+    {#        </li>#}
+    {#        {% empty %}#}
+    {#        <li>В курсе еще нет модулей</li>#}
+    {#    {% endfor %}#}
+
+
+{% endblock %}
+{% block content %}
+    <div class="module">
+        {% cache 600 module_contents module request.LANGUAGE_CODE %}
+            {% for content in module.contents.all %}
+                {% with item=content.item %}
+                    <h2 class="mb-4">{{ item.title }}</h2>
+                    <div class="item-content mb-4">
+                        {{ item.render }}
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        {% endcache %}
+    </div>
+{% endblock %}

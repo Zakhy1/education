@@ -36,18 +36,17 @@
                         </li>
                         {% if request.user.is_authenticated %}
                             <li class="nav-item">
-                                    <div class="dropdown">
-                                        <button class="btn btn-outline-danger dropdown-toggle" type="button"
-                                                id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {{ request.user.get_full_name }}
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <li>
-                                                <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </form>
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-danger dropdown-toggle" type="button"
+                                            id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{ request.user.get_full_name }}
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                             {% if request.user.is_superuser %}
                                 <li class="nav-item">
@@ -101,14 +100,300 @@
             {% endblock %}
     </section>
 </div>
-<footer>
-    <nav class="footer-nav bg-dark">
-        <div class="container footer-container">
-            <span><a href="#" class="footer-link">Политика конфиденциальности</a></span>
-            <span><a href="#" class="footer-link">Пользовательское соглашение</a></span>
+
+<footer id="footer" class="footer-nav bg-dark p-5" style="height: 100%;">
+    <div class="container">
+        <div class="row bottom-middle">
+            <div class="maxwidth-theme">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6 col-sm-12 mt-4">
+                            <div class="bottom-menu">
+                                <div class="items">
+                                    <div class="item-link accordion-close item-link" data-parent="#bottom1"
+                                         data-target="#bottom1">
+                                        <div class="item ">
+                                            <div class="title">
+                                                <a href="https://1cbs.ru/product/" class="footer-link-bold">Программы 1С</a>
+                                            </div>
+                                        </div>
+                                        <span><i class="fa fa-angle-down"></i></span>
+                                    </div>
+                                    <div id="bottom1" class="wrap panel-collapse wrap_compact_mobile">
+                                        <div class="item-link accordion-close item-link" data-parent="#bottom1"
+                                             data-target="#bottom1">
+                                            <div class="item ">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/product/" class="footer-link">1С:Бухгалтерия</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link accordion-close item-link" data-parent="#bottom1"
+                                             data-target="#bottom1">
+                                            <div class="item ">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/product/" class="footer-link">1С:Зарплата и управление
+                                                        персоналом</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link accordion-close item-link" data-parent="#bottom1"
+                                             data-target="#bottom1">
+                                            <div class="item ">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/product/" class="footer-link">1С:Управление торговлей</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link accordion-close item-link" data-parent="#bottom1"
+                                             data-target="#bottom1">
+                                            <div class="item ">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/product/" class="footer-link">Все программы</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link accordion-close item-link" data-parent="#bottom1"
+                                             data-target="#bottom1">
+                                            <div class="item ">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/product/" class="footer-link">Лицензии 1С</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link accordion-close item-link" data-parent="#bottom1"
+                                             data-target="#bottom1">
+                                            <div class="item ">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/product/" class="footer-link">Отраслевые решения</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link accordion-close item-link" data-parent="#bottom1"
+                                             data-target="#bottom1">
+                                            <div class="item ">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/product/" class="footer-link">Цены 1С</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12 mt-4">
+                            <div class="bottom-menu">
+                                <div class="items">
+                                    <div class="item-link accordion-close item-link" data-parent="#bottom2"
+                                         data-target="#bottom2">
+                                        <div class="item">
+                                            <div class="title">
+                                                <a href="https://1cbs.ru/services/" class="footer-link-bold">Сервисы</a>
+                                            </div>
+                                        </div>
+                                        <span><i class="fa fa-angle-down"></i></span>
+                                    </div>
+                                    <div id="bottom2" class="wrap panel-collapse wrap_compact_mobile">
+                                        <div class="item-link item-link">
+                                            <div class="item">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/services/dlya-gossektora/" class="footer-link">Для
+                                                        госсектора</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link item-link">
+                                            <div class="item">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/services/dlya-raboty-s-dokumentami-i-sdachi-otchetnosti/"
+                                                       class="footer-link">Для
+                                                        работы с документами и сдачи отчетности</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link item-link">
+                                            <div class="item">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/services/dlya-raboty-s-kontragentami-i-ikh-proverki/"
+                                                       class="footer-link">Для
+                                                        работы с контрагентами и их проверки</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link item-link">
+                                            <div class="item">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/services/konsultatsionnye-uslugi/" class="footer-link">Для
+                                                        работы через
+                                                        Интернет</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link item-link">
+                                            <div class="item">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/services/dlya-resheniya-voznikayushchikh-voprosov-i-konsultatsiy/"
+                                                       class="footer-link">Для
+                                                        решения возникающих вопросов и консультаций</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link item-link">
+                                            <div class="item">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/services/drugie-servisy/" class="footer-link">Другие
+                                                        сервисы</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12 mt-4">
+                            <div class="bottom-menu">
+                                <div class="items">
+                                    <div class="item-link accordion-close item-link" data-parent="#bottom3"
+                                         data-target="#bottom3">
+                                        <div class="item">
+                                            <div class="title">
+                                                <a href="https://1cbs.ru/uslugi/" class="footer-link-bold">Услуги</a>
+                                            </div>
+                                        </div>
+                                        <span><i class="fa fa-angle-down"></i></span>
+                                    </div>
+                                    <div id="bottom3" class="wrap panel-collapse wrap_compact_mobile">
+                                        <div class="item-link item-link">
+                                            <div class="item">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/uslugi/komplekt-podderzhki-its/" class="footer-link">1С:Комплект
+                                                        поддержки
+                                                        (ИТС)</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link item-link">
+                                            <div class="item">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/uslugi/vnedrenie/" class="footer-link">Внедрение</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link item-link">
+                                            <div class="item">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/uslugi/konsultatsionnye-uslugi/" class="footer-link">Консультационные
+                                                        услуги</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link item-link">
+                                            <div class="item">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/uslugi/obnovlenie/" class="footer-link">Обновление</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link item-link">
+                                            <div class="item">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/uslugi/podderzhka-1s/" class="footer-link">Сопровождение
+                                                        1С</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12 mt-4">
+                            <div class="bottom-menu">
+                                <div class="items">
+                                    <div class="item-link accordion-close item-link" data-parent="#bottom5"
+                                         data-target="#bottom5">
+                                        <div class="item ">
+                                            <div class="title">
+                                                <a href="https://1cbs.ru/" class="footer-link-bold">Полезная информация</a>
+                                            </div>
+                                        </div>
+                                        <span><i class="fa fa-angle-down"></i></span>
+                                    </div>
+                                    <div id="bottom5" class="wrap panel-collapse wrap_compact_mobile">
+                                        <div class="item-link accordion-close item-link" data-parent="#bottom5"
+                                             data-target="#bottom5">
+                                            <div class="item ">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/company/" class="footer-link">О компании</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link accordion-close item-link" data-parent="#bottom5"
+                                             data-target="#bottom5">
+                                            <div class="item ">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/projects" class="footer-link">Выполненные проекты</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link accordion-close item-link" data-parent="#bottom5"
+                                             data-target="#bottom5">
+                                            <div class="item ">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/info/news/" class="footer-link">Новости</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link accordion-close item-link" data-parent="#bottom5"
+                                             data-target="#bottom5">
+                                            <div class="item ">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/sales" class="footer-link">Акции</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-link accordion-close item-link" data-parent="#bottom5"
+                                             data-target="#bottom5">
+                                            <div class="item ">
+                                                <div class="title">
+                                                    <a href="https://1cbs.ru/contacts" class="footer-link">Контакты</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </nav>
+        <hr class="gray">
+        <div class="row bottom-under">
+            <div class="maxwidth-theme">
+                <div class="col-md-12 outer-wrapper">
+                    <div class="inner-wrapper">
+                        <div class="footer-underline-box">
+                            <a href="https://1cbs.ru/include/licenses_detail.php" class="footer-link">Политика конфиденциальности</a>
+                        </div>
+                        <div class="footer-underline-box">
+                            <a href="mailto:lirchzakhar@gmail.com" class="footer-link">Сообщить об ошибке</a>
+                            <span class="footer-text">© 2006-2021 "Бизнес-Софт Технологии"</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </footer>
+
+{#<footer>#}
+{#    <nav class="footer-nav bg-dark">#}
+{#        <div class="container footer-container">#}
+{#            <span><a href="#" class="footer-link">Политика конфиденциальности</a></span>#}
+{#            <span><a href="#" class="footer-link">Пользовательское соглашение</a></span>#}
+{#        </div>#}
+{#    </nav>#}
+{#</footer>#}
 {% block include_js %}
 {% endblock %}
 {% block script %}

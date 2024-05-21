@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load cache %}
+{% load course %}
 
 
 {% block title %}
@@ -9,7 +10,7 @@
     {% for m in object.modules.all %}
         <div class="sidebar-item {% if m == module %}s-active{% endif %}" data-id="{{ m.id }}">
             <a href="{% url 'student_course_detail_module' object.id m.id %}"
-               class="sidebar-link">{{ m.order }}. {{ m.title }}</a>
+               class="sidebar-link">{{ m.order|add:1 }}. {{ m.title }}</a>
         </div>
     {% endfor %}
 
@@ -30,7 +31,7 @@
 
 {% endblock %}
 {% block content %}
-    <div class="module">
+    <div class="module mb-5">
         {% cache 600 module_contents module request.LANGUAGE_CODE %}
             {% for content in module.contents.all %}
                 {% with item=content.item %}
@@ -41,5 +42,11 @@
                 {% endwith %}
             {% endfor %}
         {% endcache %}
+        <a href="{% url 'student_course_detail_module' course.id module.order %}"
+           class="btn btn-outline-danger {% if module.order == 0 %} disabled {% endif %}">
+            Предыдущий модуль</a>
+        <a href="{% url 'student_course_detail_module' course.id module.order|add:2 %}"
+           class="btn btn-outline-danger {% if module.order == module_last_order %} disabled {% endif %}">
+            Следующий модуль</a>
     </div>
 {% endblock %}

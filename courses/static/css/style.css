@@ -35,7 +35,7 @@
 
 /*Установил высоту мейна для прилипания подвала в низу страницы*/
 .main {
-    min-height: calc(100vh - 80px);
+    min-height: 100vh;
 }
 
 /*Контент*/
@@ -87,18 +87,40 @@
 .footer-link {
     color: #9D9D9D;
     text-decoration: none;
-    font-weight: bold;
 
     display: inline-block;
     transition: 0.3s; /* Время перехода */
 }
 
+
+.footer-link-bold {
+    text-decoration: none;
+    font-weight: bold;
+    color: #fff;
+}
+
+.footer-link-bold:hover {
+    color: #9d9d9d;
+}
+.gray {
+    color: #fff;
+}
 .footer-link:hover {
     color: #fff;
 
-    transform: rotate(3deg) translate(5px); /* Трансформация */
+    /*transform: rotate(3deg) translate(5px); !* Трансформация *!*/
 }
 
+.footer-text {
+    color: #9d9d9d;
+}
+.inner-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+.footer-underline-box {
+    display: grid;
+}
 .footer-container {
     display: flex;
     flex-direction: column;
@@ -196,6 +218,7 @@
 .accent-link:hover {
     color: #aa0c0c;
 }
+
 .check-a, .check-a label {
     cursor: pointer;
 }

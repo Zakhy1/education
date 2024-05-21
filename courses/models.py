@@ -66,6 +66,10 @@ class Module(models.Model):
     class Meta:
         ordering = ['order']
 
+    def get_last_order(self):
+        field = self._meta.get_field('order')
+        return field.get_last_order_number(self)
+
     def __str__(self):
         return f'{self.order}. {self.title}'
 

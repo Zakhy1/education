@@ -24,3 +24,11 @@ def add_rows(field, rows: int):
 @register.filter
 def verbose_name(obj):
     return obj._meta.verbose_name
+
+
+@register.filter
+def subtract(value, arg):
+    try:
+        return int(value) - int(arg)
+    except (ValueError, TypeError):
+        return value

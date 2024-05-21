@@ -6,6 +6,11 @@
 {% endblock %}
 {% block sidebar %} {% endblock %}
 {% block content %}
+    <div class="row mb-2">
+        <div class="m-0 p-0">
+            <a href="{% url 'course_list' %}" class="btn btn-outline-danger">К списку курсов</a>
+        </div>
+    </div>
     <div class="row bg-accent p-4">
         <div class="col-9">
             <h2 class="c-white">{{ object.title }}</h2>
@@ -56,6 +61,7 @@
                          data-bs-parent="#accordion">
                         <div class="accordion-body">
                             {{ module.description|safe }}
+                            <a href="{% url 'student_course_detail_module' course.id module.id %}" class="btn btn-outline-danger">Перейти в модуль</a>
                         </div>
                     </div>
                 </div>

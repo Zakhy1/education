@@ -42,6 +42,11 @@
                                         {{ request.user.get_full_name }}
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        {% if request.user.is_superuser %}
+                                        	<li>
+                                            <a class="dropdown-item" href="admin/">Панель администратора</a>
+                                        </li>
+                                        {% endif %}
                                         <li>
                                             <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
                                         </li>

@@ -7,9 +7,9 @@
                     <div class="row h-100">
                         <div class="col-6 h-100 card-grid">
                             <a href="{% url 'course_detail' course.slug %}" class="text-decoration-none c-title">
-                                <h5 class="course-title">{{ course.title }}</h5></a>
+                                <h5 class="course-title mb-0">{{ course.title }}</h5></a>
                             <div class="course-desc-span">
-                                <div class="">{{ subject }}</div>
+                                <div class="course-subject">{{ subject }}</div>
                                 <div>
                                     {{ course.owner.get_full_name }}
                                 </div>
@@ -21,9 +21,9 @@
                             {{ course.hours }}ч.
                         </span>
                         </div>
-                        <div class="col-6 d-flex justify-content-end">
+                        <div class="col-6 d-flex justify-content-end p-0">
                             <img src="{% if course.image %} {{ course.image.url }} {% else %} {% static 'img/img_2.png' %} {% endif %}"
-                                 alt="" class="img course-img rounded">
+                                 alt="" class="img course-img rounded w-100">
                         </div>
                     </div>
                 </div>

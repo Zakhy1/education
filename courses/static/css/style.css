@@ -222,3 +222,7 @@
 .check-a, .check-a label {
     cursor: pointer;
 }
+.course-subject {
+    color: var(--gray-text);
+    font-size: 12px;
+}

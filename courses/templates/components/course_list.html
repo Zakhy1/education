@@ -9,7 +9,8 @@
                             <a href="{% url 'course_detail' course.slug %}" class="text-decoration-none c-title">
                                 <h5 class="course-title mb-0">{{ course.title }}</h5></a>
                             <div class="course-desc-span">
-                                <div class="course-subject">{{ subject }}</div>
+                                <a href="{% url 'course_list_subject' subject.slug %}"
+                                   class="course-subject">{{ subject }}</a>
                                 <div>
                                     {{ course.owner.get_full_name }}
                                 </div>

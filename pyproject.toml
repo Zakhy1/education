@@ -24,6 +24,7 @@ django-froala-editor = "^4.2.0"
 pytils = "^0.4.1"
 django-ckeditor-5 = "^0.2.13"
 fontawesomefree = "^6.5.1"
+python-dotenv = "^1.0.1"
 
 
 [tool.poetry.dev-dependencies]

@@ -223,6 +223,7 @@
     cursor: pointer;
 }
 .course-subject {
-    color: var(--gray-text);
-    font-size: 12px;
+    color: #0D6BF7;
+    font-size: 14px;
+    text-decoration: none;
 }

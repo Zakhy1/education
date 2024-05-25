@@ -2,8 +2,8 @@
 <div class="row">
     {% for course in courses %}
         {% with subject=course.subject %}
-            <div class="col-xl-4 col-md-6 col-sm-12">
-                <div class="course-card p-4">
+            <div class="col-xxl-4 col-xl-6 col-sm-12 mt-3">
+                <div class="course-card p-4 d-grid">
                     <div class="row h-100">
                         <div class="col-6 h-100 card-grid">
                             <a href="{% url 'course_detail' course.slug %}" class="text-decoration-none c-title">
@@ -15,17 +15,19 @@
                                     {{ course.owner.get_full_name }}
                                 </div>
                             </div>
-                            <span class="course-stats">
+                        </div>
+                        <div class="col-6 d-flex justify-content-end p-0">
+                            <img src="{% if course.image %} {{ course.image.url }} {% else %} {% static 'img/img_2.png' %} {% endif %}"
+                                 alt="" class="img course-img rounded">
+                        </div>
+                    </div>
+                    <div class="row d-flex align-items-end h-100">
+                    <span class="course-stats">
                                  <i class="fa fa-th-list"></i>
                             {{ course.total_modules }}
                                  <i class="fa fa-clock-four"></i>
                             {{ course.hours }}ч.
                         </span>
-                        </div>
-                        <div class="col-6 d-flex justify-content-end p-0">
-                            <img src="{% if course.image %} {{ course.image.url }} {% else %} {% static 'img/img_2.png' %} {% endif %}"
-                                 alt="" class="img course-img rounded w-100">
-                        </div>
                     </div>
                 </div>
             </div>

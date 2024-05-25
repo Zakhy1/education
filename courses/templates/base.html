@@ -94,7 +94,7 @@
     <section>
         <div class="row d-flex justify-content-center">
             {% block sidebar %}
-                <aside class="col-md-3 col-sm-12">
+                <aside class="col-md-4 col-sm-12">
                     <div class="sidebar">
                         {% block sidebar-items %}
                             <div class="sidebar-item s-active">
@@ -112,7 +112,7 @@
             {% endblock %}
 
             {% block main %}
-                <main class="col-9">
+                <main class="col-md-8 col-sm-12">
                     {% block content %}
                     {% endblock %}
                 </main>
@@ -405,13 +405,15 @@
         <div class="row bottom-under">
             <div class="maxwidth-theme">
                 <div class="col-md-12 outer-wrapper">
-                    <div class="inner-wrapper">
-                        <div class="footer-underline-box">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 text-center">
                             <a href="https://1cbs.ru/include/licenses_detail.php" class="footer-link">Политика
                                 конфиденциальности</a>
                         </div>
-                        <div class="footer-underline-box">
+                        <div class="col-md-6 col-sm-12 text-center">
                             <a href="mailto:lirchzakhar@gmail.com" class="footer-link">Сообщить об ошибке</a>
+                        </div>
+                        <div class="col-12 text-center">
                             <span class="footer-text">© 2006-2021 "Бизнес-Софт Технологии"</span>
                         </div>
                     </div>

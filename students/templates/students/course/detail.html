@@ -42,11 +42,11 @@
                 {% endwith %}
             {% endfor %}
         {% endcache %}
-        <a href="{% url 'student_course_detail_module' course.id module.order %}"
-           class="btn btn-outline-danger {% if module.order == 0 %} disabled {% endif %}">
+        <a href="{% url 'student_course_detail_module' course.id prev_module_id %}"
+           class="btn btn-outline-danger {% if module.id == prev_module_id %} disabled {% endif %}">
             Предыдущий модуль</a>
-        <a href="{% url 'student_course_detail_module' course.id module.order|add:2 %}"
-           class="btn btn-outline-danger {% if module.order == module_last_order %} disabled {% endif %}">
+        <a href="{% url 'student_course_detail_module' course.id next_module_id  %}"
+           class="btn btn-outline-danger {% if module.id == next_module_id %} disabled {% endif %}">
             Следующий модуль</a>
     </div>
 {% endblock %}

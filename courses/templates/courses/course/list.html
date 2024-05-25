@@ -42,7 +42,7 @@
 {#                </form>#}
 {#        </div>#}
 {#    </div>#}
-    <h3 class="mb-4">
+    <h3 class="mb-2">
         {% if subject %}
             Курсы по {{ subject.title }}
         {% else %}
@@ -50,7 +50,7 @@
         {% endif %}
     </h3>
 
-    <div class="module">
+    <div class="module mb-4">
         {% include 'components/course_list.html' %}
     </div>
 {% endblock %}

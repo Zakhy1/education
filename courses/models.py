@@ -74,6 +74,19 @@ class Module(models.Model):
     def __str__(self):
         return f'{self.order}. {self.title}'
 
+    def get_next_module(self):
+        next_module = Module.objects.filter(
+            course=self.course,
+            order__gt=self.order
+        ).order_by('order').first()
+        return next_module
+
+    def get_prev_module(self):
+        prev_module = Module.objects.filter(
+            course=self.course,
+            order__lt=self.order
+        ).order_by('order').first()
+        return prev_module
 
 class Content(models.Model):
     module = models.ForeignKey(Module,

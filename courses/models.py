@@ -36,7 +36,8 @@ class Course(models.Model):
     students = models.ManyToManyField(get_user_model(),
                                       related_name='courses_joined',
                                       blank=True, verbose_name='Студенты')
-    image = models.ImageField(upload_to='course_images', blank=True, verbose_name='Изображение')
+    image = models.ImageField(upload_to='course_images', blank=True, verbose_name='Изображение',
+                              default='img/default.png')
     hours = models.PositiveIntegerField(default=10)
     tasks = models.PositiveIntegerField(default=4)
 

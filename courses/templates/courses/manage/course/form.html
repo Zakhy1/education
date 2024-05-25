@@ -28,7 +28,7 @@
                 {% endfor %}
             </ul>
         {% endif %}
-        <form method="post" class="row" novalidate>
+        <form method="post" class="row" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             {{ form.media }}
             <div class="col-md-4 col-sm-12 mb-2">

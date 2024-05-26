@@ -41,8 +41,8 @@ class StudentsEnrollCourseView(LoginRequiredMixin,
         return reverse_lazy('student_course_detail', args=[self.course.id])
 
 
-class StudentsUnEnrollCourseView(LoginRequiredMixin,
-                                 FormView):
+class StudentsUnrollCourseView(LoginRequiredMixin,
+                               FormView):
     course = None
     form_class = CourseEnrollForm
 
@@ -81,7 +81,9 @@ class StudentCourseDetailView(DetailView):
             module = course.modules.get(id=self.kwargs['module_id'])
         else:
             module = course.modules.all()[0]
-
+        context['unroll_form'] = CourseEnrollForm(
+            initial={'course': self.object}
+        )
         context['module'] = module
         next_module = module.get_next_module()
         prev_module = module.get_prev_module()

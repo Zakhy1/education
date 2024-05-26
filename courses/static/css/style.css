@@ -317,3 +317,12 @@ body::-webkit-scrollbar-thumb {
     border-radius: 20px; /* Округление бегунка */
     border: 3px solid var(--gray-border); /* Оформление границ бегунка */
 }
+
+textarea::-webkit-scrollbar {
+    width: 5px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background-color: var(--gray-border);
+    border-radius: 10px;
+}

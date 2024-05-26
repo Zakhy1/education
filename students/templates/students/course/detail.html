@@ -45,8 +45,17 @@
         <a href="{% url 'student_course_detail_module' course.id prev_module_id %}"
            class="btn btn-outline-danger {% if module.id == prev_module_id %} disabled {% endif %}">
             Предыдущий модуль</a>
-        <a href="{% url 'student_course_detail_module' course.id next_module_id  %}"
+        <a href="{% url 'student_course_detail_module' course.id next_module_id %}"
            class="btn btn-outline-danger {% if module.id == next_module_id %} disabled {% endif %}">
             Следующий модуль</a>
+        {% if module.id == next_module_id %}
+            <form action="{% url 'student_unroll_course' %}" method="post">
+                {{ unroll_form }}
+                {% csrf_token %}
+                <div>
+                    <button class="btn accent-btn mt-4" type="submit">Завершить курс</button>
+                </div>
+            </form>
+        {% endif %}
     </div>
 {% endblock %}

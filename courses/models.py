@@ -61,7 +61,7 @@ class Module(models.Model):
                                related_name='modules',
                                on_delete=models.CASCADE, verbose_name='Курс')
     title = models.CharField(max_length=200, verbose_name='Название', blank=True)
-    description = CKEditor5Field(verbose_name='Описание', config_name='default', blank=True)
+    description = models.TextField(verbose_name='Описание', blank=True)
     order = OrderField(blank=True, for_fields=['course'], verbose_name='Порядок')
 
     class Meta:

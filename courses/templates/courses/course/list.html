@@ -8,19 +8,16 @@
         Все курсы
     {% endif %}
 {% endblock %}
-{#{% block sidebar-items %}#}
-{#    <div class="sidebar-item {% if not subject %} s-active {% endif %}">#}
-{#        <a href="{% url 'course_list' %}" class="sidebar-link">Все</a>#}
-{#    </div>#}
-{#    {% for s in subjects %}#}
-{#        <div class="sidebar-item {% if subject == s %} s-active {% endif %}">#}
-{#            <a href="{% url 'course_list_subject' s.slug %}" class="sidebar-link"> {{ s.title }}#}
-{#                <span>{{ s.total_courses }}</span></a>#}
-{#        </div>#}
-{#    {% endfor %}#}
-{#{% endblock %}#}
-{% block sidebar %}
-
+{% block sidebar-items %}
+    <div class="sidebar-item {% if not subject %} s-active {% endif %}">
+        <a href="{% url 'course_list' %}" class="sidebar-link">Все курсы</a>
+    </div>
+    {% for s in subjects %}
+        <div class="sidebar-item {% if subject == s %} s-active {% endif %}">
+            <a href="{% url 'course_list_subject' s.slug %}" class="sidebar-link"> {{ s.title }}
+                <span>({{ s.total_courses }})</span></a>
+        </div>
+    {% endfor %}
 {% endblock %}
 {% block content %}
 {#    <div class="row mb-3 mt-3">#}

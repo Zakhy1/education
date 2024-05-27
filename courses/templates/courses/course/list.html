@@ -13,32 +13,34 @@
         <a href="{% url 'course_list' %}" class="sidebar-link">Все курсы</a>
     </div>
     {% for s in subjects %}
-        <div class="sidebar-item {% if subject == s %} s-active {% endif %}">
-            <a href="{% url 'course_list_subject' s.slug %}" class="sidebar-link"> {{ s.title }}
-                <span>({{ s.total_courses }})</span></a>
-        </div>
+        {% if s.total_courses != 0 %}
+            <div class="sidebar-item {% if subject == s %} s-active {% endif %}">
+                <a href="{% url 'course_list_subject' s.slug %}" class="sidebar-link"> {{ s.title }}
+                    <span>({{ s.total_courses }})</span></a>
+            </div>
+        {% endif %}
     {% endfor %}
 {% endblock %}
 {% block content %}
-{#    <div class="row mb-3 mt-3">#}
-{#        <div class="col-12">#}
-{#                <form class="row bg-block rounded d-flex p-3 w-100">#}
-{#                    <div class="col-md-8">#}
-{#                        <input type="search" placeholder="Название курса" class="form-control">#}
-{#                    </div>#}
-{#                    <div class="col-2">#}
-{#                        <select class="form-control">#}
-{#                            <option selected disabled>Предмет</option>#}
-{#                            <option value="1c">1C</option>#}
-{#                            <option value="2с">2С</option>#}
-{#                        </select>#}
-{#                    </div>#}
-{#                    <div class="col-2">#}
-{#                        <button type="submit" class="btn btn-danger">Найти курсы</button>#}
-{#                    </div>#}
-{#                </form>#}
-{#        </div>#}
-{#    </div>#}
+    {#    <div class="row mb-3 mt-3">#}
+    {#        <div class="col-12">#}
+    {#                <form class="row bg-block rounded d-flex p-3 w-100">#}
+    {#                    <div class="col-md-8">#}
+    {#                        <input type="search" placeholder="Название курса" class="form-control">#}
+    {#                    </div>#}
+    {#                    <div class="col-2">#}
+    {#                        <select class="form-control">#}
+    {#                            <option selected disabled>Предмет</option>#}
+    {#                            <option value="1c">1C</option>#}
+    {#                            <option value="2с">2С</option>#}
+    {#                        </select>#}
+    {#                    </div>#}
+    {#                    <div class="col-2">#}
+    {#                        <button type="submit" class="btn btn-danger">Найти курсы</button>#}
+    {#                    </div>#}
+    {#                </form>#}
+    {#        </div>#}
+    {#    </div>#}
     <h3 class="mb-2">
         {% if subject %}
             Курсы по {{ subject.title }}

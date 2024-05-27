@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, \
 from django.core.cache import cache
 from django.db.models import Count
 from django.forms.models import modelform_factory
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView
 from django.views.generic.base import TemplateResponseMixin, View
@@ -237,3 +237,7 @@ class CourseDetailView(DetailView):
             initial={'course': self.object}
         )
         return context
+
+
+def admin_view(request):
+    return render(request, '')

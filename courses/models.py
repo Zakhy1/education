@@ -45,8 +45,11 @@ class Course(models.Model):
         """
         Метод сохранения экземпляра
         """
-        if not self.slug:
-            self.slug = slugify(self.title)
+        # if not self.slug:
+        self.slug = slugify(self.title)
+        slugs = Course.objects.all().exclude(id=self.id).values_list('slug',  flat=True)
+        if self.slug in slugs:
+            self.slug += '_'
         return super().save(*args, **kwargs)
 
     def __str__(self):

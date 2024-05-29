@@ -10,10 +10,12 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, TemplateView
 from django.contrib.auth import login as auth_login
+
+from education_platform.views_core import BaseView
 from users.forms import AuthenticationForm
 from django.contrib.auth import logout as auth_logout
 
-class LoginView(RedirectURLMixin, FormView):
+class LoginView(RedirectURLMixin, FormView, BaseView):
     """
     Display the login form and handle the login action.
     """
@@ -74,7 +76,7 @@ class LoginView(RedirectURLMixin, FormView):
         return context
 
 
-class LogoutView(RedirectURLMixin, TemplateView):
+class LogoutView(RedirectURLMixin, TemplateView, BaseView):
     http_method_names = ["get", "head", "post", "options"]
     template_name = "registration/logged_out.html"
     extra_context = None

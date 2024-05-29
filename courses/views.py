@@ -16,16 +16,8 @@ from django.views.generic.list import ListView
 from courses.forms import ModuleFormSet, CourseEditForm, CourseCreateForm
 from courses.models import Course, Subject
 from courses.models import Module, Content
+from education_platform.views_core import BaseView
 from students.forms import CourseEnrollForm
-
-
-class ManageCourseListView(ListView):
-    model = Course
-    template_name = 'courses/manage/course/list.html'
-
-    def get_queryset(self):
-        qs = super().get_queryset()
-        return qs.filter(owner=self.request.user)
 
 
 class OwnerMixin:
@@ -52,29 +44,34 @@ class OwnerCourseEditMixin(OwnerCourseMixin, OwnerEditMixin):
     template_name = 'courses/manage/course/form.html'
 
 
-class ManageCourseListView(OwnerCourseMixin, ListView):
+class ManageCourseListView(ListView, BaseView):
+    model = Course
     template_name = 'courses/manage/course/list.html'
     permission_required = 'courses.view_course'
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(owner=self.request.user)
 
-class CourseCreateView(OwnerCourseEditMixin, CreateView):
+
+class CourseCreateView(OwnerCourseEditMixin, CreateView, BaseView):
     fields = None
     permission_required = 'courses.add_course'
     form_class = CourseCreateForm
 
 
-class CourseUpdateView(OwnerCourseEditMixin, UpdateView):
+class CourseUpdateView(OwnerCourseEditMixin, UpdateView, BaseView):
     fields = None
     permission_required = 'courses.change_course'
     form_class = CourseEditForm
 
 
-class CourseDeleteView(OwnerCourseMixin, DeleteView):
+class CourseDeleteView(OwnerCourseMixin, DeleteView, BaseView):
     template_name = 'courses/manage/course/delete.html'
     permission_required = 'courses.delete_course'
 
 
-class CourseModuleUpdateView(TemplateResponseMixin, View):
+class CourseModuleUpdateView(TemplateResponseMixin, BaseView):
     template_name = 'courses/manage/module/formset.html'
     course = None
 
@@ -102,7 +99,7 @@ class CourseModuleUpdateView(TemplateResponseMixin, View):
                                         'formset': formset})
 
 
-class ContentCreateUpdateView(TemplateResponseMixin, View):
+class ContentCreateUpdateView(TemplateResponseMixin, BaseView):
     module = None
     model = None
     obj = None
@@ -155,7 +152,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
                                         'object': self.obj})
 
 
-class ContentDeleteView(View):
+class ContentDeleteView(BaseView):
     def post(self, request, id):
         content = get_object_or_404(Content,
                                     id=id,
@@ -166,7 +163,7 @@ class ContentDeleteView(View):
         return redirect('module_content_list', module.id)
 
 
-class ModuleContentListView(TemplateResponseMixin, View):
+class ModuleContentListView(TemplateResponseMixin, BaseView):
     template_name = 'courses/manage/module/content_list.html'
 
     def get(self, request, module_id):
@@ -178,7 +175,7 @@ class ModuleContentListView(TemplateResponseMixin, View):
 
 class ModuleOrderView(CsrfExemptMixin,
                       JsonRequestResponseMixin,
-                      View):
+                      BaseView):
     def post(self, request):
         for id, order in self.request_json.items():
             Module.objects.filter(id=id,
@@ -186,7 +183,7 @@ class ModuleOrderView(CsrfExemptMixin,
         return self.render_json_response({'saved': 'OK'})
 
 
-class ContentOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):
+class ContentOrderView(CsrfExemptMixin, JsonRequestResponseMixin, BaseView):
     def post(self, request):
         for id, order in self.request_json.items():
             Content.objects.filter(id=id,
@@ -194,7 +191,7 @@ class ContentOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):
         return self.render_json_response({'saved': 'OK'})
 
 
-class CourseListView(TemplateResponseMixin, View):
+class CourseListView(TemplateResponseMixin, BaseView):
     model = Course
     template_name = 'courses/course/list.html'
 
@@ -225,7 +222,7 @@ class CourseListView(TemplateResponseMixin, View):
                                         })
 
 
-class CourseDetailView(DetailView):
+class CourseDetailView(DetailView, BaseView):
     model = Course
     template_name = 'courses/course/detail.html'
 

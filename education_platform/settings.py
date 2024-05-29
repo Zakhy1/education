@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from django.urls import reverse_lazy
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -236,6 +237,37 @@ CKEDITOR_5_CONFIGS = {
 }
 
 AUTH_USER_MODEL = 'users.User'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'error.log'),
+            'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file', 'console'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
 
 if DEBUG:
     from education_platform.conf.local import *

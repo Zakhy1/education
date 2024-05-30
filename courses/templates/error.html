@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Произошла ошибка
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block content %}
+    <div class="min-vh-100 d-flex flex-column align-items-center">
+        <h1 class="text-center">Произошла ошибка</h1>
+        <img src="{% static 'img/error.jpg' %}" alt="">
+    </div>
+{% endblock %}

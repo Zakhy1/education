@@ -101,6 +101,11 @@ class CustomUserCreationForm(UserCreationForm):
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].label = 'Придумайте пароль'
+        self.fields['password2'].label = 'Повторите пароль'
+
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'password1', 'password2', 'bool')

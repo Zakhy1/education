@@ -3,7 +3,7 @@ from django.apps import apps
 from django.contrib.auth.mixins import LoginRequiredMixin, \
     PermissionRequiredMixin
 from django.core.cache import cache
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.forms.models import modelform_factory
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
@@ -198,12 +198,10 @@ class CourseListView(TemplateResponseMixin, BaseView):
     def get(self, request, subject=None):
         subjects = cache.get('all_subjects')
         if not subjects:
-            subjects = Subject.objects.annotate(
-                total_courses=Count('courses'))
+            subjects = Subject.objects.annotate(total_courses=Count('courses'))
             cache.set('all_subjects', subjects)
-        all_courses = Course.objects.annotate(
-            total_modules=Count('modules')
-        )
+        all_courses = Course.objects.annotate(total_modules=Count('modules'))
+
         if subject:
             subject = get_object_or_404(Subject, slug=subject)
             key = f'subject_{subject.id}_courses'
@@ -211,15 +209,20 @@ class CourseListView(TemplateResponseMixin, BaseView):
             if not courses:
                 courses = all_courses.filter(subject=subject)
                 cache.set(key, courses)
+
         else:
             courses = cache.get('all_courses')
             if not courses:
                 courses = all_courses
                 cache.set('all_courses', courses)
+
+        query = request.GET.get('q')
+        if query:
+            courses = courses.filter(title__icontains=query)
+
         return self.render_to_response({'subjects': subjects,
                                         'subject': subject,
-                                        'courses': courses
-                                        })
+                                        'courses': courses})
 
 
 class CourseDetailView(DetailView, BaseView):

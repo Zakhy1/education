@@ -18,17 +18,17 @@
                         {% endfor %}
                         {% for field in form.visible_fields %}
                             {% if not field.field.widget.input_type %}
-                                <div class="col-6">
+                                <div class="col-md-6 col-sm-12">
                                     {{ field.label_tag }}
                                     {{ field|add_rows:5 }}
                                 </div>
                             {% elif field.field.widget.input_type == "text" %}
-                                <div class="col-6">
+                                <div class="col-md-6 col-sm-12">
                                     {{ field.label_tag }}
                                     {{ field|add_class:"form-control" }}
                                 </div>
                             {% elif field.field.widget.input_type == 'checkbox' %}
-                                <div class="d-flex gap-2">
+                                <div class="d-flex gap-2 mt-2">
                                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                                         {{ field|add_class:"btn-check" }}
                                         <label class="btn btn-outline-danger" for="{{ field.id_for_label }}">Удалить

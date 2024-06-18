@@ -12,7 +12,7 @@
     Модуль {{ module.order|add:1 }}: {{ module.title }}
 {% endblock %}
 {% block sidebar %}
-    <aside class="col-md-3 col-sm-12">
+    <aside class="col-md-3 col-sm-12 mb-4">
         <div class="sidebar" id="modules">
             {% block sidebar-items %}
                 {% for m in module.course.modules.all %}
@@ -44,7 +44,7 @@
 
 {% block content %}
 
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Курс "{{ module.course.title }}"</h2>
         <a href="{% url "course_module_update" module.course.id %}" class="btn btn-danger">
             Изменить модули</a>
@@ -72,16 +72,18 @@
             {% endfor %}
         </div>
 
-        <h4 class="mt-4 mb-3">Добавить новый контент:</h4>
+        <h4 class="mt-4 mb-4">Добавить новый контент:</h4>
 
-        <div class="d-flex gap-5 mb-4">
-            <a href="{% url "module_content_create" module.id "text" %}" class="content-type">Текст</a>
+        <div class="d-flex gap-3 mb-4 justify-content-sm-center">
+            <div>
+                <a href="{% url "module_content_create" module.id "text" %}" class="content-type">Текст</a>
 
-            <a href="{% url "module_content_create" module.id "image" %}" class="content-type">Изображение</a>
+                <a href="{% url "module_content_create" module.id "image" %}" class="content-type">Изображение</a>
 
-            <a href="{% url "module_content_create" module.id "video" %}" class="content-type">Видео</a>
+                <a href="{% url "module_content_create" module.id "video" %}" class="content-type">Видео</a>
 
-            <a href="{% url "module_content_create" module.id "file" %}" class="content-type">Файл</a>
+                <a href="{% url "module_content_create" module.id "file" %}" class="content-type">Файл</a>
+            </div>
         </div>
 
     </div>

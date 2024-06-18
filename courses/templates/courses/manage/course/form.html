@@ -41,9 +41,13 @@
                     {{ form.subject }}
                 </div>
             {% endif %}
-            <div class="col-4 mb-2">
+            <div class="col-md-4 col-sm-12 mb-2">
                 {{ form.hours.label }}
                 {{ form.hours }}
+            </div>
+            <div class="col-md-4 col-sm-12 mb-2">
+                {{ form.tasks.label }}
+                {{ form.tasks }}
             </div>
             <div class="col-12 mb-2">
                 {{ form.overview.label }}

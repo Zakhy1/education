@@ -42,4 +42,5 @@ urlpatterns = [
     path('<slug:slug>/',
          courses_views.CourseDetailView.as_view(),
          name='course_detail'),
+    path('admin_view/', courses_views.AdminCourseListView.as_view(), name='admin_view')
 ]

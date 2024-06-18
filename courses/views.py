@@ -239,5 +239,10 @@ class CourseDetailView(DetailView, BaseView):
         return context
 
 
-def admin_view(request):
-    return render(request, '')
+class AdminCourseListView(TemplateResponseMixin, BaseView):
+    model = Course
+    template_name = 'courses/course/list.html'
+
+    def get(self, request, subject=None):
+        courses = Course.objects.annotate(total_modules=Count('modules'))
+        return self.render_to_response({'courses': courses})

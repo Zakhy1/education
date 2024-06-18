@@ -326,3 +326,7 @@ textarea::-webkit-scrollbar-thumb {
     background-color: var(--gray-border);
     border-radius: 10px;
 }
+
+.cke-wrapper {
+    width: 80vw;
+}

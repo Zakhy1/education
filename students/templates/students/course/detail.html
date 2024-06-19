@@ -33,7 +33,6 @@
 {% block content %}
     <div class="module mb-5">
         {% cache 30 module_contents module request.LANGUAGE_CODE %}
-            {#            TODO вернуть кэширование #}
             {% for content in module.contents.all %}
                 {% with item=content.item %}
                     <h2 class="mb-4">{{ item.title }}</h2>

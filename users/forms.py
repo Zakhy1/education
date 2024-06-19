@@ -19,7 +19,7 @@ class AuthenticationForm(forms.Form):
     username/password logins.
     """
 
-    username = UsernameField(widget=forms.TextInput(attrs={"autofocus": True, "label": "Адрес электронной почты"}))
+    username = UsernameField(widget=forms.EmailInput(attrs={"autofocus": True, "label": "Адрес электронной почты"}))
     password = forms.CharField(
         label=_("Password"),
         strip=False,
@@ -103,6 +103,9 @@ class CustomUserCreationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+
         self.fields['password1'].label = 'Придумайте пароль'
         self.fields['password2'].label = 'Повторите пароль'
 

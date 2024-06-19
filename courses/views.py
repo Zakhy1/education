@@ -222,7 +222,8 @@ class CourseListView(TemplateResponseMixin, BaseView):
 
         return self.render_to_response({'subjects': subjects,
                                         'subject': subject,
-                                        'courses': courses})
+                                        'courses': courses,
+                                        'query': query})
 
 
 class CourseDetailView(DetailView, BaseView):

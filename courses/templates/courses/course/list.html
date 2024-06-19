@@ -3,7 +3,9 @@
 
 {% block title %}
     {% if subject %}
-        курсы по {{ subject.title }}
+        Курсы по {{ subject.title }}
+    {% elif query %}
+        Курсы по запросу "{{ query }}"
     {% else %}
         Все курсы
     {% endif %}
@@ -23,14 +25,14 @@
 {% endblock %}
 {% block content %}
     <div class="d-flex justify-content-center">
-        <form class="row bg-block rounded d-flex p-3 mb-3 w-100" method="get">
-            <div class="col-md-6 col-lg-8 col-sm-12 mb-2">
+        <form class="row bg-block rounded d-flex p-3 mb-3 w-100 align-items-center" method="get">
+            <div class="col-md-6 col-lg-8 col-sm-12 mb-2 mt-2">
                 <input type="search" name="q" value="{{ request.GET.q }}" placeholder="Название курса"
                        class="form-control">
             </div>
             <div class="col-lg-4 col-md-6 d-flex">
                 <div>
-                    <button type="submit" class="btn btn-danger">Найти курсы</button>
+                    <button type="submit" class="btn btn-danger mb-2 mt-2">Найти курсы</button>
                 </div>
             </div>
         </form>
@@ -38,6 +40,8 @@
     <h3 class="mb-2">
         {% if subject %}
             Курсы по {{ subject.title }}
+        {% elif query %}
+            Курсы по запросу "{{ query }}"
         {% else %}
             Все курсы
         {% endif %}

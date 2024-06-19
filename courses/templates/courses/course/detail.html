@@ -28,9 +28,9 @@
         </div>
         <div class="col-xl-3 col-md-4 d-flex flex-column justify-self-end">
             <ul class="course-info bg-block rounded">
-                <li>{{ modules.count }} модулей</li>
-                <li>{{ object.hours }} часов на прохождение</li>
-                <li>{{ object.tasks }} задания</li>
+                <li>{{ modules.count }} {{ modules.count|ru_plural:"модуль,модуля,модулей" }}</li>
+                <li>{{ object.hours }} {{ modules.count|ru_plural:"час,часов,часов" }}</li>
+                <li>{{ object.tasks }} {{ modules.count|ru_plural:"задание,задания,заданий" }}</li>
             </ul>
             {% if request.user.is_authenticated %}
                 <form action="{% url 'student_enroll_course' %}" method="post">

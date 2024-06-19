@@ -11,6 +11,7 @@
         <form method="post" class="row">
             {{ formset.management_form }}
             <div class="col-12">
+                <span style="color: var(--bs-red);">{{ formset.non_form_errors }}</span>
                 {% for form in formset %}
                     <div class="row form-block mb-3">
                         {% for hidden in form.hidden_fields %}

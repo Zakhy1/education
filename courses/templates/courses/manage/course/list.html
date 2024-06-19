@@ -40,12 +40,14 @@
 
                                     </div>
                                 </div>
-                                <div class="col-6 d-grid  justify-content-end">
-                                    <img src="{{ course.image.url }}" alt="" class="img course-img rounded w-100">
-                                    <p style="align-self: start; justify-self: end;">
-                                        <a href="{% url 'course_delete' course.id %}" class="btn btn-danger"
-                                           style="width: 100px">Удалить</a>
-                                    </p>
+                                <div class="col-6">
+                                    <div class="d-grid  justify-content-end">
+                                        <img src="{{ course.image.url }}" alt="" class="img course-img rounded w-100 mb-3">
+                                        <p style="align-self: start; justify-self: end;">
+                                            <a href="{% url 'course_delete' course.id %}" class="btn btn-danger"
+                                               style="width: 100px">Удалить</a>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

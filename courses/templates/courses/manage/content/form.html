@@ -73,93 +73,93 @@
 
 {% block script %}
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-    const btnSubmit = document.querySelector('#submit');
-    const btnAddQuestion = document.querySelector('#addQuestion');
-    const questionsContainer = document.querySelector('#questions-container');
-    const form = document.querySelector('#questionForm'); // Изменено на form
+        document.addEventListener('DOMContentLoaded', function () {
+            const btnSubmit = document.querySelector('#submit');
+            const btnAddQuestion = document.querySelector('#addQuestion');
+            const questionsContainer = document.querySelector('#questions-container');
+            const form = document.querySelector('#questionForm'); // Изменено на form
 
-    // Добавление нового вопроса
-    btnAddQuestion.addEventListener('click', function() {
-        const template = document.querySelector('#question-template');
-        const newQuestion = template.content.cloneNode(true);
-        questionsContainer.appendChild(newQuestion);
-    });
+            // Добавление нового вопроса
+            btnAddQuestion.addEventListener('click', function () {
+                const template = document.querySelector('#question-template');
+                const newQuestion = template.content.cloneNode(true);
+                questionsContainer.appendChild(newQuestion);
+            });
 
-    // Удаление вопроса
-    questionsContainer.addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-question')) {
-            e.target.closest('.question_block').remove();
-        }
-    });
+            // Удаление вопроса
+            questionsContainer.addEventListener('click', function (e) {
+                if (e.target.classList.contains('remove-question')) {
+                    e.target.closest('.question_block').remove();
+                }
+            });
 
-    // Парсинг и отрисовка существующих вопросов
-    function renderQuestions(questions) {
-        questions.forEach(function(questionObj) {
-            const template = document.querySelector('#question-template');
-            const newQuestion = template.content.cloneNode(true);
+            // Парсинг и отрисовка существующих вопросов
+            function renderQuestions(questions) {
+                questions.forEach(function (questionObj) {
+                    const template = document.querySelector('#question-template');
+                    const newQuestion = template.content.cloneNode(true);
 
-            const questionInput = newQuestion.querySelector('.question-input');
-            const correctAnswerInput = newQuestion.querySelector('.correct-answer-input');
-            const incorrectAnswerInputs = newQuestion.querySelectorAll('.incorrect-answer-input');
+                    const questionInput = newQuestion.querySelector('.question-input');
+                    const correctAnswerInput = newQuestion.querySelector('.correct-answer-input');
+                    const incorrectAnswerInputs = newQuestion.querySelectorAll('.incorrect-answer-input');
 
-            questionInput.value = questionObj.question;
-            correctAnswerInput.value = questionObj.answers.a;
-            incorrectAnswerInputs[0].value = questionObj.answers.b;
-            incorrectAnswerInputs[1].value = questionObj.answers.c;
-            incorrectAnswerInputs[2].value = questionObj.answers.d;
+                    questionInput.value = questionObj.question;
+                    correctAnswerInput.value = questionObj.answers.a;
+                    incorrectAnswerInputs[0].value = questionObj.answers.b;
+                    incorrectAnswerInputs[1].value = questionObj.answers.c;
+                    incorrectAnswerInputs[2].value = questionObj.answers.d;
 
-            questionsContainer.appendChild(newQuestion);
+                    questionsContainer.appendChild(newQuestion);
+                });
+            }
+
+            // Обработка отправки формы
+            btnSubmit.addEventListener('click', function (e) {
+
+                const questions = [];
+                const questionBlocks = document.querySelectorAll('.question_block');
+                questionBlocks.forEach(function (block) {
+                    const questionInput = block.querySelector('.question-input');
+                    const correctAnswerInput = block.querySelector('.correct-answer-input');
+                    const incorrectAnswerInputs = block.querySelectorAll('.incorrect-answer-input');
+
+                    const questionObj = {
+                        question: questionInput.value,
+                        answers: {
+                            a: correctAnswerInput.value,
+                            b: incorrectAnswerInputs[0].value,
+                            c: incorrectAnswerInputs[1].value,
+                            d: incorrectAnswerInputs[2].value,
+                        },
+                        correctAnswer: "a"
+                    };
+
+                    questions.push(questionObj);
+                });
+
+                // Запись данных в скрытое поле формы
+                const field = document.querySelector('#id_options');
+                field.value = JSON.stringify(questions);
+
+                // Отправка формы
+                if (form) {
+                    form.submit();
+                } else {
+                    console.error('Форма не найдена');
+                }
+            });
+
+            // Инициализация при загрузке страницы
+            const field = document.querySelector('#id_options');
+            if (field.value) {
+                try {
+                    const existingQuestions = JSON.parse(field.value);
+                    renderQuestions(existingQuestions);
+                } catch (error) {
+                    console.error('Ошибка при парсинге JSON:', error);
+                }
+            }
         });
-    }
-
-    // Обработка отправки формы
-    btnSubmit.addEventListener('click', function(e) {
-
-        const questions = [];
-        const questionBlocks = document.querySelectorAll('.question_block');
-        questionBlocks.forEach(function(block) {
-            const questionInput = block.querySelector('.question-input');
-            const correctAnswerInput = block.querySelector('.correct-answer-input');
-            const incorrectAnswerInputs = block.querySelectorAll('.incorrect-answer-input');
-
-            const questionObj = {
-                question: questionInput.value,
-                answers: {
-                    a: correctAnswerInput.value,
-                    b: incorrectAnswerInputs[0].value,
-                    c: incorrectAnswerInputs[1].value,
-                    d: incorrectAnswerInputs[2].value,
-                },
-                correctAnswer: "a"
-            };
-
-            questions.push(questionObj);
-        });
-
-        // Запись данных в скрытое поле формы
-        const field = document.querySelector('#id_options');
-        field.value = JSON.stringify(questions);
-
-        // Отправка формы
-        if (form) {
-            form.submit();
-        } else {
-            console.error('Форма не найдена');
-        }
-    });
-
-    // Инициализация при загрузке страницы
-    const field = document.querySelector('#id_options');
-    if (field.value) {
-        try {
-            const existingQuestions = JSON.parse(field.value);
-            renderQuestions(existingQuestions);
-        } catch (error) {
-            console.error('Ошибка при парсинге JSON:', error);
-        }
-    }
-});
     </script>
 
     <template id="question-template">

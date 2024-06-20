@@ -20,13 +20,10 @@
             for (letter in currentquestion.answers) {
                 answers.push(
                     `<section>
-
-
-
-                <label>
-                <input type="radio" name="question${questionIndex}" value="${letter}">
-                ${currentquestion.answers[letter]}
-              </label>
+                           <label>
+                             <input type="radio" name="question${questionIndex}" value="${letter}">
+                              ${currentquestion.answers[letter]}
+                          </label>
               </section>`
                 );
             }
@@ -91,7 +88,6 @@
     const resultsContainer = document.getElementById("results");
     const submitButton = document.getElementById("submit");
     const options = "{{ item.options }}"
-    console.log(options)
 
     // Функция для декодирования HTML-специальных символов
     function decodeHtml(html) {
@@ -103,10 +99,8 @@
     // Декодируем HTML-экранированные символы в строке JSON
     var decoded_json_string = decodeHtml(options);
     var json_object = JSON.parse(decoded_json_string);
-    console.log(json_object)
     shuffleAnswersInQuestions(json_object)
     var testquestions = shuffleArray(json_object)
-    console.log(testquestions)
     buildTest();
     submitButton.addEventListener("click", showResults);
 </script>

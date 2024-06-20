@@ -2,13 +2,13 @@ from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from django.apps import apps
 from django.contrib.auth.mixins import LoginRequiredMixin, \
     PermissionRequiredMixin
+from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
-from django.db.models import Count, Q
 from django.forms.models import modelform_factory
-from django.shortcuts import redirect, get_object_or_404, render
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import DetailView
-from django.views.generic.base import TemplateResponseMixin, View
+from django.views.generic.base import TemplateResponseMixin
 from django.views.generic.edit import CreateView, UpdateView, \
     DeleteView
 from django.views.generic.list import ListView
@@ -226,6 +226,9 @@ class CourseListView(TemplateResponseMixin, BaseView):
                                         'query': query})
 
 
+from django.db.models import Count
+
+
 class CourseDetailView(DetailView, BaseView):
     model = Course
     template_name = 'courses/course/detail.html'
@@ -237,6 +240,9 @@ class CourseDetailView(DetailView, BaseView):
         context['enroll_form'] = CourseEnrollForm(
             initial={'course': self.object}
         )
+        quiz_content_type = ContentType.objects.get(model='quiz')
+        tasks_count = Content.objects.filter(module__in=modules, content_type=quiz_content_type).count()
+        context['tasks_count'] = tasks_count
         return context
 
 

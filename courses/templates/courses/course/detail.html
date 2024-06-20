@@ -30,7 +30,7 @@
             <ul class="course-info bg-block rounded">
                 <li>{{ modules.count }} {{ modules.count|ru_plural:"модуль,модуля,модулей" }}</li>
                 <li>{{ object.hours }} {{ modules.count|ru_plural:"час,часов,часов" }}</li>
-                <li>{{ object.tasks }} {{ modules.count|ru_plural:"задание,задания,заданий" }}</li>
+                <li>{{ tasks_count }} {{ modules.count|ru_plural:"тест,тестов,теста" }}</li>
             </ul>
             {% if request.user.is_authenticated %}
                 <form action="{% url 'student_enroll_course' %}" method="post">

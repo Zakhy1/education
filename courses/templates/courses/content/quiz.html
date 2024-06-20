@@ -1,0 +1,112 @@
+<div id="container">
+    <div id="test"></div>
+</div>
+<button id="submit" class="btn btn-outline-danger mt-3">Проверить</button>
+<div class="btn">
+    <div id="results"></div>
+</div>
+
+
+<style>
+
+</style>
+
+<script>
+    function buildTest() {
+        const output = [];
+
+        testquestions.forEach((currentquestion, questionIndex) => {
+            const answers = [];
+            for (letter in currentquestion.answers) {
+                answers.push(
+                    `<section>
+
+
+
+                <label>
+                <input type="radio" name="question${questionIndex}" value="${letter}">
+                ${currentquestion.answers[letter]}
+              </label>
+              </section>`
+                );
+            }
+            output.push(
+                `<div class="question mt-2"> ${currentquestion.question} </div>
+            <div class="answers"> ${answers.join("")} </div>`
+            );
+        });
+
+        testContainer.innerHTML = output.join("");
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    function shuffleAnswersInQuestions(questions) {
+        questions.forEach(function (question) {
+            const answersArray = Object.keys(question.answers).map(function (key) {
+                return {key: key, value: question.answers[key]};
+            });
+
+            // Перемешивание массива вариантов ответа
+            for (let i = answersArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [answersArray[i], answersArray[j]] = [answersArray[j], answersArray[i]];
+            }
+
+            // Обновление вопроса с перемешанными вариантами ответа
+            question.answers = {};
+            answersArray.forEach(function (item) {
+                question.answers[item.key] = item.value;
+            });
+        });
+    }
+
+    function showResults() {
+        const answerContainers = testContainer.querySelectorAll(".answers");
+
+        let correctNum = 0;
+
+        testquestions.forEach((currentquestion, questionIndex) => {
+            const answerContainer = answerContainers[questionIndex];
+            const selector = `input[name=question${questionIndex}]:checked`;
+            const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+            if (userAnswer === currentquestion.correctAnswer) {
+                correctNum++;
+                answerContainers[questionIndex].style.color = "green";
+            } else {
+                answerContainers[questionIndex].style.color = "red";
+            }
+        });
+        resultsContainer.innerHTML = `Правильных ответов: ${correctNum} из ${testquestions.length}`;
+    }
+
+    const testContainer = document.getElementById("test");
+    const resultsContainer = document.getElementById("results");
+    const submitButton = document.getElementById("submit");
+    const options = "{{ item.options }}"
+    console.log(options)
+
+    // Функция для декодирования HTML-специальных символов
+    function decodeHtml(html) {
+        var txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+    }
+
+    // Декодируем HTML-экранированные символы в строке JSON
+    var decoded_json_string = decodeHtml(options);
+    var json_object = JSON.parse(decoded_json_string);
+    console.log(json_object)
+    shuffleAnswersInQuestions(json_object)
+    var testquestions = shuffleArray(json_object)
+    console.log(testquestions)
+    buildTest();
+    submitButton.addEventListener("click", showResults);
+</script>

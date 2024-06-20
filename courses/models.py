@@ -47,7 +47,7 @@ class Course(models.Model):
         """
         # if not self.slug:
         self.slug = slugify(self.title)
-        slugs = Course.objects.all().exclude(id=self.id).values_list('slug',  flat=True)
+        slugs = Course.objects.all().exclude(id=self.id).values_list('slug', flat=True)
         if self.slug in slugs:
             self.slug += '_'
         return super().save(*args, **kwargs)
@@ -91,6 +91,7 @@ class Module(models.Model):
         ).order_by('order').first()
         return prev_module
 
+
 class Content(models.Model):
     module = models.ForeignKey(Module,
                                related_name='contents',
@@ -101,7 +102,8 @@ class Content(models.Model):
                                          'text',
                                          'video',
                                          'image',
-                                         'file'
+                                         'file',
+                                         'quiz'
                                      )})
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')
@@ -146,3 +148,7 @@ class Image(ItemBase):
 
 class Video(ItemBase):
     url = models.URLField(verbose_name='Видео')
+
+
+class Quiz(ItemBase):
+    options = models.TextField()

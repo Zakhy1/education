@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load course %}
+
 {% block title %}
     {% if object %}
         Редактирование контента "{{ object.title }}"
@@ -7,13 +8,14 @@
         Добавление контента
     {% endif %}
 {% endblock %}
+
 {% block sidebar %}
 
 {% endblock %}
+
 {% block main %}
     <div class="col-12 d-grid justify-content-center">
         <h2>
-
             {% if object %}
                 Редактирование контента "{{ object.title }}"
             {% else %}
@@ -28,10 +30,14 @@
                             <li style="color: red;">{{ error }}</li>
                         {% endfor %}
                     {% endfor %}
+                    {% for err in form.non_field_errors %}
+                        <li>{{ err }}</li>
+                    {% endfor %}
                 </ul>
             {% endif %}
-            <form action="" class="text-form" method="post" enctype="multipart/form-data">
+            <form action="" class="text-form" method="post" enctype="multipart/form-data" id="questionForm">
                 {{ form.media }}
+
                 {% for field in form.visible_fields %}
                     {% if field.field.widget.input_type == "text" %}
                         <div class="mb-2 col-md-6 col-sm-12">
@@ -45,6 +51,14 @@
                                     (url){% endif %}:</label>
                             {{ field|add_class:"form-control" }}
                         </div>
+                    {% elif field.name == "options" %}
+                        <div id="questions-container">
+                            <!-- Сюда будут добавляться вопросы -->
+                        </div>
+                        <button type="button" id="addQuestion" class="btn btn-outline-danger mb-3">Добавить вопрос
+                        </button>
+                        <p><input type="submit" value="Сохранить" class="btn btn-danger" id="submit"></p>
+                        {{ field }}
                     {% else %}
                         <div class="cke-wrapper">
                             {{ field }}
@@ -52,9 +66,115 @@
                     {% endif %}
                 {% endfor %}
                 {% csrf_token %}
-                <p><input type="submit" value="Сохранить" class="btn btn-danger"></p>
             </form>
         </div>
     </div>
 {% endblock %}
 
+{% block script %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const btnSubmit = document.querySelector('#submit');
+    const btnAddQuestion = document.querySelector('#addQuestion');
+    const questionsContainer = document.querySelector('#questions-container');
+    const form = document.querySelector('#questionForm'); // Изменено на form
+
+    // Добавление нового вопроса
+    btnAddQuestion.addEventListener('click', function() {
+        const template = document.querySelector('#question-template');
+        const newQuestion = template.content.cloneNode(true);
+        questionsContainer.appendChild(newQuestion);
+    });
+
+    // Удаление вопроса
+    questionsContainer.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-question')) {
+            e.target.closest('.question_block').remove();
+        }
+    });
+
+    // Парсинг и отрисовка существующих вопросов
+    function renderQuestions(questions) {
+        questions.forEach(function(questionObj) {
+            const template = document.querySelector('#question-template');
+            const newQuestion = template.content.cloneNode(true);
+
+            const questionInput = newQuestion.querySelector('.question-input');
+            const correctAnswerInput = newQuestion.querySelector('.correct-answer-input');
+            const incorrectAnswerInputs = newQuestion.querySelectorAll('.incorrect-answer-input');
+
+            questionInput.value = questionObj.question;
+            correctAnswerInput.value = questionObj.answers.a;
+            incorrectAnswerInputs[0].value = questionObj.answers.b;
+            incorrectAnswerInputs[1].value = questionObj.answers.c;
+            incorrectAnswerInputs[2].value = questionObj.answers.d;
+
+            questionsContainer.appendChild(newQuestion);
+        });
+    }
+
+    // Обработка отправки формы
+    btnSubmit.addEventListener('click', function(e) {
+
+        const questions = [];
+        const questionBlocks = document.querySelectorAll('.question_block');
+        questionBlocks.forEach(function(block) {
+            const questionInput = block.querySelector('.question-input');
+            const correctAnswerInput = block.querySelector('.correct-answer-input');
+            const incorrectAnswerInputs = block.querySelectorAll('.incorrect-answer-input');
+
+            const questionObj = {
+                question: questionInput.value,
+                answers: {
+                    a: correctAnswerInput.value,
+                    b: incorrectAnswerInputs[0].value,
+                    c: incorrectAnswerInputs[1].value,
+                    d: incorrectAnswerInputs[2].value,
+                },
+                correctAnswer: "a"
+            };
+
+            questions.push(questionObj);
+        });
+
+        // Запись данных в скрытое поле формы
+        const field = document.querySelector('#id_options');
+        field.value = JSON.stringify(questions);
+
+        // Отправка формы
+        if (form) {
+            form.submit();
+        } else {
+            console.error('Форма не найдена');
+        }
+    });
+
+    // Инициализация при загрузке страницы
+    const field = document.querySelector('#id_options');
+    if (field.value) {
+        try {
+            const existingQuestions = JSON.parse(field.value);
+            renderQuestions(existingQuestions);
+        } catch (error) {
+            console.error('Ошибка при парсинге JSON:', error);
+        }
+    }
+});
+    </script>
+
+    <template id="question-template">
+        <div class="question_block p-4 mb-3 rounded">
+            <label for="question">Вопрос</label>
+            <input type="text" name="questions[]" class="form-control mb-2 question-input" required>
+            <label for="correctAnswer">Правильный ответ</label>
+            <input type="text" name="correct_answers[]" class="form-control mb-2 correct-answer-input" required>
+            <label for="incorrectAnswer_0">Неправильный ответ</label>
+            <input type="text" name="incorrect_answers[]" class="form-control mb-2 incorrect-answer-input" required>
+            <label for="incorrectAnswer_1">Неправильный ответ</label>
+            <input type="text" name="incorrect_answers[]" class="form-control mb-2 incorrect-answer-input" required>
+            <label for="incorrectAnswer_2">Неправильный ответ</label>
+            <input type="text" name="incorrect_answers[]" class="form-control mb-2 incorrect-answer-input" required>
+            <button type="button" class="btn btn-outline-danger mb-3 remove-question">Удалить вопрос</button>
+        </div>
+    </template>
+{% endblock %}

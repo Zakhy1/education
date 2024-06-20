@@ -330,10 +330,20 @@ textarea::-webkit-scrollbar-thumb {
 .cke-wrapper {
     width: 80vw;
 }
+
 .image_resized img {
     width: 100%;
     height: auto;
 }
+
 .image_resized {
     width: 100% !important;
+}
+
+.question {
+    font-weight: bold;
+}
+
+.question_block {
+    background-color: var(--bg-block);
 }

@@ -88,7 +88,7 @@ class Module(models.Model):
         prev_module = Module.objects.filter(
             course=self.course,
             order__lt=self.order
-        ).order_by('order').first()
+        ).order_by('order').last()
         return prev_module
 
 

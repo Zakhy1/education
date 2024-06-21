@@ -32,7 +32,7 @@
 {% endblock %}
 {% block content %}
     <div class="module mb-5">
-        {% cache 0 module_contents module request.LANGUAGE_CODE %}
+        {% cache 300 module_contents module request.LANGUAGE_CODE %}
             {% for content in module.contents.all %}
                 {% with item=content.item %}
                     <h2 class="mb-4">{{ item.title }}</h2>
@@ -43,10 +43,10 @@
             {% endfor %}
         {% endcache %}
         <a href="{% url 'student_course_detail_module' course.id prev_module_id %}"
-           class="btn btn-outline-danger {% if module.id == prev_module_id %} disabled {% endif %}">
+           class="mb-2 btn btn-outline-danger {% if module.id == prev_module_id %} disabled {% endif %}">
             Предыдущий модуль</a>
         <a href="{% url 'student_course_detail_module' course.id next_module_id %}"
-           class="btn btn-outline-danger {% if module.id == next_module_id %} disabled {% endif %}">
+           class="mb-2 btn btn-outline-danger {% if module.id == next_module_id %} disabled {% endif %}">
             Следующий модуль</a>
         {% if module.id == next_module_id %}
             <form action="{% url 'student_unroll_course' %}" method="post">

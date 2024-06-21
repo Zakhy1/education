@@ -169,7 +169,7 @@
 .course-card {
     border: var(--default-border);
     border-radius: 10px;
-    min-height: 250px;
+    min-height: 300px;
 }
 
 .course-stats {

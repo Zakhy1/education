@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load course %}
+{% load static %}
 {% block preloader %}
     <div class="preloader">
         <div class="preloader__row">
@@ -74,18 +75,16 @@
 
         <h4 class="mt-4 mb-4">Добавить новый контент:</h4>
 
-        <div class="d-flex gap-3 mb-4 justify-content-sm-center">
-            <div>
-                <a href="{% url "module_content_create" module.id "text" %}" class="content-type">Текст</a>
+        <div class="d-flex gap-3 mb-4 flex-wrap">
+            <a href="{% url "module_content_create" module.id "text" %}" class="content-type">Текст</a>
 
-                <a href="{% url "module_content_create" module.id "image" %}" class="content-type">Изображение</a>
+            <a href="{% url "module_content_create" module.id "image" %}" class="content-type">Изображение</a>
 
-                <a href="{% url "module_content_create" module.id "video" %}" class="content-type">Видео</a>
+            <a href="{% url "module_content_create" module.id "video" %}" class="content-type">Видео</a>
 
-                <a href="{% url "module_content_create" module.id "file" %}" class="content-type">Файл</a>
+            <a href="{% url "module_content_create" module.id "file" %}" class="content-type">Файл</a>
 
-                <a href="{% url "module_content_create" module.id "quiz" %}" class="content-type">Тест</a>
-            </div>
+            <a href="{% url "module_content_create" module.id "quiz" %}" class="content-type">Тест</a>
         </div>
 
     </div>

@@ -8,11 +8,12 @@ from django.contrib.auth import authenticate, login
 from django.views.generic.detail import DetailView
 
 from courses.models import Course, Module
+from education_platform.views_core import BaseView
 from users.forms import CustomUserCreationForm
 from .forms import CourseEnrollForm
 
 
-class StudentRegistrationView(CreateView):
+class StudentRegistrationView(CreateView, BaseView):
     template_name = 'students/student/registration.html'
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('student_course_list')
@@ -28,7 +29,7 @@ class StudentRegistrationView(CreateView):
 
 
 class StudentsEnrollCourseView(LoginRequiredMixin,
-                               FormView):
+                               FormView, BaseView):
     course = None
     form_class = CourseEnrollForm
 
@@ -42,7 +43,7 @@ class StudentsEnrollCourseView(LoginRequiredMixin,
 
 
 class StudentsUnrollCourseView(LoginRequiredMixin,
-                               FormView):
+                               FormView, BaseView):
     course = None
     form_class = CourseEnrollForm
 
@@ -55,7 +56,7 @@ class StudentsUnrollCourseView(LoginRequiredMixin,
         return reverse_lazy('student_course_list')
 
 
-class StudentCourseListView(LoginRequiredMixin, ListView):
+class StudentCourseListView(LoginRequiredMixin, ListView, BaseView):
     model = Course
     template_name = 'students/course/list.html'
 
@@ -66,7 +67,7 @@ class StudentCourseListView(LoginRequiredMixin, ListView):
         )
 
 
-class StudentCourseDetailView(DetailView):
+class StudentCourseDetailView(DetailView, BaseView):
     model = Course
     template_name = 'students/course/detail.html'
 

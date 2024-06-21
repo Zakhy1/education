@@ -57,14 +57,16 @@
                         </div>
                         <button type="button" id="addQuestion" class="btn btn-outline-danger mb-3">Добавить вопрос
                         </button>
-                        <p><input type="submit" value="Сохранить" class="btn btn-danger" id="submit"></p>
-                        {{ field }}
+                        <div class="d-none">
+                            {{ field }}
+                        </div>
                     {% else %}
                         <div class="cke-wrapper">
                             {{ field }}
                         </div>
                     {% endif %}
                 {% endfor %}
+                <p><input type="submit" value="Сохранить" class="btn btn-danger" id="submit"></p>
                 {% csrf_token %}
             </form>
         </div>

@@ -5,9 +5,13 @@
             <div class="col-xxl-4 col-xl-6 col-sm-12 mt-3">
                 <div class="course-card p-4 d-grid">
                     <div class="row h-100">
-                        <div class="col-6 h-100 card-grid">
+                        <div class="col-12 h-100">
                             <a href="{% url 'course_detail' course.slug %}" class="text-decoration-none c-title">
-                                <h5 class="course-title mb-0">{{ course.title }}</h5></a>
+                                <h5 class="course-title mb-2" style="font-size: 1.3rem;">{{ course.title }}</h5></a>
+                            <div class="d-flex justify-content-center mb-2">
+                                <img src="{% if course.image %} {{ course.image.url }} {% else %} {% static 'img/img_2.png' %} {% endif %}"
+                                     alt="" class="img course-img rounded">
+                            </div>
                             <div class="course-desc-span">
                                 <a href="{% url 'course_list_subject' subject.slug %}"
                                    class="course-subject">{{ subject }}</a>
@@ -16,10 +20,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 d-flex justify-content-end p-0">
-                            <img src="{% if course.image %} {{ course.image.url }} {% else %} {% static 'img/img_2.png' %} {% endif %}"
-                                 alt="" class="img course-img rounded">
-                        </div>
+
                     </div>
                     <div class="row d-flex align-items-end h-100">
                     <span class="course-stats">

@@ -437,12 +437,60 @@
 {% endblock %}
 {% block script %}
 {% endblock %}
+{% block anchor %}
+    <div class="progress-bar">
+        <input type="text" class="dial" readonly="readonly" style="display: none; width: 0px; visibility: hidden;">
+        <a href="#" class="btn-top" title="Вверх"><i class="fa fa-angle-up" aria-hidden="true"> </i> </a>
+    </div>
+    <script src="{% static 'js/JQuery.js' %}"></script>
+    <script src="{% static 'js/knob.js' %}"></script>
+    <script>
+        var offset = 100,
+            scroll_top_duration = 700,
+            $back_to_top = jQuery('.btn-top'),
+            $thedial = jQuery('.dial'),
+            $progress_bar = jQuery('.progress-bar');
 
+        $thedial.knob({
+            'min': 0, // минимальное значение прогресс бара (минимум 0)
+            'max': 100, // максимальное значение прогресс бара (максимум 100)
+            'width': 50, // ширина элемента
+            'height': 50, // высота элемента
+            'fgColor': '#D81437', // цвет бара
+            'skin': 'tron',
+            'thickness': .1, // ширина линии
+            'displayInput': false, // отображать поле
+            'displayPreview': false, // отображать значение
+            'readOnly': true // только для чтения
+        });
+
+        jQuery(window).scroll(function () {
+
+            (jQuery(this).scrollTop() > offset) ? $progress_bar.addClass('is-visible') : $progress_bar.removeClass('is-visible'); // добавление класса к кнопке при прокрутке страницы для её появления
+
+            var s = jQuery(window).scrollTop(), // высота от верхней части
+                d = jQuery(document).height(), // переменная для высоты html документа
+                c = jQuery(window).height(); // высота экрана пользователя
+            scrollPercent = (s / (d - c)) * 100; // расчет прогресс бара
+
+            jQuery('.dial').val(scrollPercent).change();
+
+        });
+        // событие на нажатие кнопки
+        $back_to_top.on('click', function (e) {
+            e.preventDefault();
+            $('body,html').animate({
+                scrollTop: 0,
+            }, scroll_top_duration);
+        });
+    </script>
+{% endblock %}
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         {% block domready %} {% endblock %}
     })
 </script>
 <script src="{% static 'js/bootstrap.js' %}"></script>
+
 </body>
 </html>

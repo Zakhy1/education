@@ -347,3 +347,52 @@ textarea::-webkit-scrollbar-thumb {
 .question_block {
     background-color: var(--bg-block);
 }
+
+.btn-top {
+    font-size: 40px;
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    position: fixed;
+    right: 25px;
+    bottom: 28px;
+    color: var(--red-accent) !important;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-angle-up:before {
+    content: "⟩";
+}
+
+.progress-bar {
+    background: transparent;
+    width: 50px;
+    border-radius: 50%;
+    height: 50px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index: 9999;
+
+    border: none;
+    box-shadow: none !important;
+}
+
+.is-visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+audio, canvas, progress, video {
+    display: inline-block;
+    vertical-align: baseline;
+}

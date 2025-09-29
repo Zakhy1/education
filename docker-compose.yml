@@ -4,8 +4,8 @@ services:
   app:
     container_name: gunicorn
     build: .
-    command: bash -c "poetry run python /srv/www/education_platform/manage.py migrate --noinput &&
-      poetry run gunicorn -c gunicorn.py education_platform.wsgi"
+    command: bash -c "uv run python /srv/www/education_platform/manage.py migrate --noinput &&
+      uv run gunicorn -c gunicorn.py education_platform.wsgi"
     volumes:
       - .:/srv/www/education_platform/education
     expose:
@@ -18,8 +18,6 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    networks:
-      - djangonetwork
     env_file:
       - .env
     healthcheck:
@@ -36,8 +34,6 @@ services:
       - '5432:5432'
     env_file:
       - .env
-    networks:
-      - djangonetwork
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres_user -d postgres_db" ]
       interval: 10s
@@ -54,8 +50,6 @@ services:
       - ./data/cache:/data
     ports:
       - "6379:6379"
-    networks:
-      - djangonetwork
     healthcheck:
       test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
       interval: 1s
@@ -81,9 +75,6 @@ services:
       - ./docker/nginx:/etc/nginx/conf.d
     depends_on:
       - app
-    networks:
-      - djangonetwork
-
 #  daphne:
 #    container_name: daphne
 #    build: .
@@ -102,8 +93,3 @@ services:
 #        condition: service_healthy
 #      db:
 #        condition: service_healthy
-
-
-networks:
-  djangonetwork:
-    driver: bridge

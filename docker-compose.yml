@@ -3,11 +3,10 @@ version: '3.9'
 services:
   app:
     container_name: gunicorn
-    build: .
-    command: bash -c "uv run python /srv/www/education_platform/manage.py migrate --noinput &&
+    build:
+      context: ./app
+    command: bash -c "uv run python manage.py migrate --noinput &&
       uv run gunicorn -c gunicorn.py education_platform.wsgi"
-    volumes:
-      - .:/srv/www/education_platform/education
     expose:
       - 8000
     ports:
@@ -40,14 +39,14 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - ./data/db:/var/lib/postgres/data
+      - postgres_data:/var/lib/postgres/data
 
   redis:
     container_name: redis
     image: redis
     restart: always
     volumes:
-      - ./data/cache:/data
+      - redis_data:/data
     ports:
       - "6379:6379"
     healthcheck:
@@ -63,7 +62,7 @@ services:
     image: nginx:latest
     # слушает порт 8080
     expose:
-      - 8080
+      - 8000
     ports:
       - "80:8080"
       - "443:443"
@@ -71,25 +70,10 @@ services:
       - ./education/static:/srv/www/education_platform/static
       - ./education/media:/srv/www/education_platform/media
       - ./education/logs:/srv/www/education_platform/logs
-      - ./education/ssl/:/srv/www/education_platform/ssl
-      - ./docker/nginx:/etc/nginx/conf.d
+      - ./nginx:/etc/nginx/conf.d
     depends_on:
       - app
-#  daphne:
-#    container_name: daphne
-#    build: .
-#    working_dir: /srv/www/education_platform/
-#    command: [ "daphne", "-u", "/srv/www/education_platform/daphne.sock",
-#               "education_platform.education_platform.asgi:application" ]
-#    restart: always
-#    volumes:
-#      - .:/srv/www/education_platform/
-#    env_file:
-#      - .env
-#    depends_on:
-#      app:
-#        condition: service_healthy
-#      redis:
-#        condition: service_healthy
-#      db:
-#        condition: service_healthy
+
+volumes:
+  postgres_data:
+  redis_data:

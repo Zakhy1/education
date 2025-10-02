@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.12
 
 RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
 
@@ -8,14 +8,14 @@ RUN sh /uv-installer.sh && rm /uv-installer.sh
 
 ENV PATH="/root/.local/bin/:$PATH"
 
-WORKDIR /srv/www/education_platform
+WORKDIR /home/app/
 
 # Установка зависимостей
 COPY uv.lock pyproject.toml ./
 RUN uv sync
 
 # Запуск приложения
-COPY education /srv/www/education_platform
+COPY . .
 EXPOSE 8000
 
 # Для запуска только контейнера
